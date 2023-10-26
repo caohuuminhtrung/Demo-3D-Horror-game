@@ -21,9 +21,17 @@ public class PlayerController : MonoBehaviour
   public float castRadius;
   public float castDistance;
   public LayerMask castLayerMask;
+  public GameController gameController;
+  private enum State {
+    Disable,
+    Enable
+  };
+  private State playerState;
+  private GameObject raycastHitObject;
   // Start is called before the first frame update
   void Start()
   {
+    playerState = State.Enable;
     defaultPosY = playerCamera.transform.localPosition.y;
     rb = GetComponent<Rigidbody>();
     Cursor.lockState = CursorLockMode.Locked;
@@ -33,6 +41,7 @@ public class PlayerController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
+    if (playerState == State.Disable) return;
     CheckSpherecast(castRadius, castDistance, castLayerMask);
     float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity;
     float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity;
@@ -43,18 +52,21 @@ public class PlayerController : MonoBehaviour
     xRotation -= mouseY;
     xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-
     orientation.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     transform.rotation = Quaternion.Euler(0, yRotation, 0);
 
-    rb.transform.Translate(new Vector3(movementX, 0, movementY) * Time.deltaTime * speed);
+    rb.transform.Translate(speed * Time.deltaTime * new Vector3(movementX, 0, movementY));
     timer += bobSpeed * Time.deltaTime;
 
-    if (movementX !=0 || movementY != 0) {
+    if (Input.GetKeyDown(KeyCode.E) && raycastHitObject != null) {
+      gameController.InteractObject(raycastHitObject);
+    }
+
+    if (movementX != 0 || movementY != 0) {
       audioSource.enabled = true;
       timer += Time.deltaTime * bobSpeed;
       playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, 
-        playerCamera.transform.localPosition.y + Mathf.Sin(timer) * bobAmount,
+        Mathf.Clamp(playerCamera.transform.localPosition.y + Mathf.Sin(timer) * bobAmount, 6, 6.3f),
         playerCamera.transform.localPosition.z
       );
     }
@@ -67,6 +79,7 @@ public class PlayerController : MonoBehaviour
         playerCamera.transform.localPosition.z
       );
     }
+  
   }
 
   void LateUpdate() {
@@ -82,7 +95,19 @@ public class PlayerController : MonoBehaviour
     RaycastHit hitInfo;
     if (Physics.SphereCast(playerCamera.transform.position, radius, ray.direction, out hitInfo, detectableDistance, detectableLayer))
     {
-      Debug.Log(hitInfo);
+      raycastHitObject = hitInfo.transform.gameObject;
+      gameController.ShowPrompt(raycastHitObject);
+    } else {
+      gameController.HidePrompt();
+      raycastHitObject = null;
     }
+  }
+
+  public void SetEnable() {
+    playerState = State.Enable;
+  }
+
+  public void SetDisable() {
+    playerState = State.Disable;
   }
 }

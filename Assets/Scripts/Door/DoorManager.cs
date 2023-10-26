@@ -5,13 +5,16 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour
 {
   
-  DoorBaseState currentState;
-  DoorCloseState doorCloseState = new DoorCloseState();
-  DoorOpenState doorOpenState = new DoorOpenState();
+  public DoorBaseState currentState;
+  DoorCloseState doorCloseState;
+  DoorOpenState doorOpenState;
 
   // Start is called before the first frame update
   void Start()
   {
+    doorCloseState = gameObject.AddComponent<DoorCloseState>();
+    doorOpenState = gameObject.AddComponent<DoorOpenState>();
+    
     currentState = doorCloseState;
     currentState.enterState(this);
   }

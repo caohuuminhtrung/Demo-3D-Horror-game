@@ -1,0 +1,11 @@
+Model Information:
+* title:	Pill bottle (textured)
+* source:	https://sketchfab.com/3d-models/pill-bottle-textured-5b658c684756478da7e7b61dcff9b577
+* author:	Fine_poultry (https://sketchfab.com/Fine_poultry)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Pill bottle (textured)" (https://sketchfab.com/3d-models/pill-bottle-textured-5b658c684756478da7e7b61dcff9b577) by Fine_poultry (https://sketchfab.com/Fine_poultry) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
