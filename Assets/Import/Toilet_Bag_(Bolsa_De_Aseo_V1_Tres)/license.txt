@@ -1,0 +1,11 @@
+Model Information:
+* title:	Toilet Bag (Bolsa De Aseo V1 Tres)
+* source:	https://sketchfab.com/3d-models/toilet-bag-bolsa-de-aseo-v1-tres-8681bd15e16b428190dd1b9357b8be00
+* author:	Mirai_Rick (https://sketchfab.com/mirai_rick)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Toilet Bag (Bolsa De Aseo V1 Tres)" (https://sketchfab.com/3d-models/toilet-bag-bolsa-de-aseo-v1-tres-8681bd15e16b428190dd1b9357b8be00) by Mirai_Rick (https://sketchfab.com/mirai_rick) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
