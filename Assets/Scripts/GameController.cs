@@ -43,4 +43,21 @@ public class GameController : MonoBehaviour
     }
   }
 
+  public void OpenDoor(GameObject hitObject) {
+    if (hitObject.CompareTag("Door")) {
+      if (hitObject.GetComponent<DoorManager>().currentState.GetType() == typeof(DoorCloseState)) {
+        hitObject.GetComponent<DoorManager>().switchState(new DoorOpenState());
+      } 
+  }}
+
+  public void CloseDoor(GameObject hitObject) {
+    if (hitObject != null) {
+        if (hitObject.CompareTag("Door")) {
+            if (hitObject.GetComponent<DoorManager>().currentState.GetType() == typeof(DoorOpenState)) {
+                hitObject.GetComponent<DoorManager>().switchState(new DoorCloseState());
+            } 
+        }
+    }
+}
+
 }

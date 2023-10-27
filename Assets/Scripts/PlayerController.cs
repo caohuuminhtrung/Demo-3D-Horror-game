@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+  private bool isHoldingItem = false;
+  private GameObject heldItem;
+  private Vector3 itemOffset;
+
+  public bool isDoorOpen = false;
+  public float openDistance = 5.0f;
+  public float closeDistance = 10.0f;
   public GameObject playerCamera;
   public GameObject orientation;
   public float sensitivity;
@@ -28,6 +35,7 @@ public class PlayerController : MonoBehaviour
   };
   private State playerState;
   private GameObject raycastHitObject;
+  private GameObject clone;
   // Start is called before the first frame update
   void Start()
   {
@@ -58,8 +66,18 @@ public class PlayerController : MonoBehaviour
     rb.transform.Translate(speed * Time.deltaTime * new Vector3(movementX, 0, movementY));
     timer += bobSpeed * Time.deltaTime;
 
-    if (Input.GetKeyDown(KeyCode.E) && raycastHitObject != null) {
-      gameController.InteractObject(raycastHitObject);
+    if (raycastHitObject != null) {
+      clone = raycastHitObject;
+        float distanceToDoor = Vector3.Distance(transform.position, raycastHitObject.transform.position);
+        if (distanceToDoor <= openDistance) {
+            gameController.OpenDoor(raycastHitObject);
+            isDoorOpen = true; 
+        }        
+    }
+    else if (isDoorOpen) {
+      gameController.CloseDoor(clone);
+      isDoorOpen = false;
+      clone = null;
     }
 
     if (movementX != 0 || movementY != 0) {
@@ -79,7 +97,32 @@ public class PlayerController : MonoBehaviour
         playerCamera.transform.localPosition.z
       );
     }
-  
+
+
+    if (Input.GetKeyDown(KeyCode.E))
+    {
+        if (!isHoldingItem)
+        {
+            if (raycastHitObject.CompareTag("Item"))
+            {
+                heldItem = raycastHitObject;
+                itemOffset = heldItem.transform.position - playerCamera.transform.position;
+                isHoldingItem = true;
+            }
+        }
+        else
+        {
+            heldItem = null;
+            isHoldingItem = false;
+        }
+    }
+
+    if (isHoldingItem)
+    {
+
+        heldItem.transform.position = playerCamera.transform.position + itemOffset;
+    }
+    
   }
 
   void LateUpdate() {
@@ -90,18 +133,25 @@ public class PlayerController : MonoBehaviour
   }
 
   void CheckSpherecast(float radius, float detectableDistance, LayerMask detectableLayer)
-  {
+{
     Ray ray = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
     RaycastHit hitInfo;
     if (Physics.SphereCast(playerCamera.transform.position, radius, ray.direction, out hitInfo, detectableDistance, detectableLayer))
     {
-      raycastHitObject = hitInfo.transform.gameObject;
-      gameController.ShowPrompt(raycastHitObject);
+        raycastHitObject = hitInfo.transform.gameObject;
+        if (raycastHitObject.CompareTag("Door")) {
+            gameController.HidePrompt();
+        } else if (raycastHitObject.CompareTag("Item")) {
+            gameController.ShowPrompt(raycastHitObject);
+        }
     } else {
-      gameController.HidePrompt();
-      raycastHitObject = null;
+        gameController.HidePrompt();
+        raycastHitObject = null;
     }
-  }
+
+}
+
+
 
   public void SetEnable() {
     playerState = State.Enable;
