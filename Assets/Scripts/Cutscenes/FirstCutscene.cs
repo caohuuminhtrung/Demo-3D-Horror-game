@@ -17,7 +17,7 @@ public class FirstCutscene : MonoBehaviour
   }
 
   IEnumerator EnablePlayer(GameObject player) {
-    player.GetComponent<PlayerController>().SetEnable();
+    player.GetComponent<PlayerController>().SetIdle();
     player.GetComponent<Animator>().enabled = false;
     yield return null;
   }
