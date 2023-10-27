@@ -4,42 +4,35 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-  private bool isHoldingItem = false;
-  private GameObject heldItem;
-  private Vector3 itemOffset;
-
-  public bool isDoorOpen = false;
-  public float openDistance = 5.0f;
-  public float closeDistance = 10.0f;
   public GameObject playerCamera;
   public GameObject orientation;
+  public GameController gameController;
   public float sensitivity;
   public float speed;
+  public float runSpeed;
   public float smoothValue;
-  float xRotation;
-  float yRotation;
-  Rigidbody rb;
-  
   public float bobSpeed = 4.8f;
   public float bobAmount = 0.05f;
   public AudioSource audioSource;
-  private float timer = Mathf.PI / 2;
-  private float defaultPosY = 0;
   public float castRadius;
   public float castDistance;
   public LayerMask castLayerMask;
-  public GameController gameController;
+
+  private float timer = Mathf.PI / 2;
+  private float defaultPosY = 0;
+  private float xRotation;
+  private float yRotation;
+  private Rigidbody rb;
   private enum State {
     Disable,
-    Enable
+    Idle,
+    IsHolding
   };
   private State playerState;
-  private GameObject raycastHitObject;
-  private GameObject clone;
   // Start is called before the first frame update
   void Start()
   {
-    playerState = State.Enable;
+    playerState = State.Idle;
     defaultPosY = playerCamera.transform.localPosition.y;
     rb = GetComponent<Rigidbody>();
     Cursor.lockState = CursorLockMode.Locked;
@@ -60,25 +53,17 @@ public class PlayerController : MonoBehaviour
     xRotation -= mouseY;
     xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
+    
+
     orientation.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     transform.rotation = Quaternion.Euler(0, yRotation, 0);
 
-    rb.transform.Translate(speed * Time.deltaTime * new Vector3(movementX, 0, movementY));
+    if (Input.GetKey(KeyCode.LeftShift)) {
+      rb.transform.Translate(runSpeed * Time.deltaTime * new Vector3(movementX, 0, movementY));
+    } else {
+      rb.transform.Translate(speed * Time.deltaTime * new Vector3(movementX, 0, movementY));
+    }
     timer += bobSpeed * Time.deltaTime;
-
-    if (raycastHitObject != null) {
-      clone = raycastHitObject;
-        float distanceToDoor = Vector3.Distance(transform.position, raycastHitObject.transform.position);
-        if (distanceToDoor <= openDistance) {
-            gameController.OpenDoor(raycastHitObject);
-            isDoorOpen = true; 
-        }        
-    }
-    else if (isDoorOpen) {
-      gameController.CloseDoor(clone);
-      isDoorOpen = false;
-      clone = null;
-    }
 
     if (movementX != 0 || movementY != 0) {
       audioSource.enabled = true;
@@ -97,31 +82,6 @@ public class PlayerController : MonoBehaviour
         playerCamera.transform.localPosition.z
       );
     }
-
-
-    if (Input.GetKeyDown(KeyCode.E))
-    {
-        if (!isHoldingItem)
-        {
-            if (raycastHitObject.CompareTag("Item"))
-            {
-                heldItem = raycastHitObject;
-                itemOffset = heldItem.transform.position - playerCamera.transform.position;
-                isHoldingItem = true;
-            }
-        }
-        else
-        {
-            heldItem = null;
-            isHoldingItem = false;
-        }
-    }
-
-    if (isHoldingItem)
-    {
-
-        heldItem.transform.position = playerCamera.transform.position + itemOffset;
-    }
     
   }
 
@@ -138,26 +98,33 @@ public class PlayerController : MonoBehaviour
     RaycastHit hitInfo;
     if (Physics.SphereCast(playerCamera.transform.position, radius, ray.direction, out hitInfo, detectableDistance, detectableLayer))
     {
-        raycastHitObject = hitInfo.transform.gameObject;
-        if (raycastHitObject.CompareTag("Door")) {
-            gameController.HidePrompt();
-        } else if (raycastHitObject.CompareTag("Item")) {
-            gameController.ShowPrompt(raycastHitObject);
-        }
+      gameController.ShowPrompt(hitInfo.transform.gameObject);
+
+      if (Input.GetKeyDown(KeyCode.E))
+      {
+        gameController.InteractObject(hitInfo.transform.gameObject);
+      }
+
     } else {
-        gameController.HidePrompt();
-        raycastHitObject = null;
+      gameController.HidePrompt();
     }
 
 }
 
-
-
-  public void SetEnable() {
-    playerState = State.Enable;
+  public void SetIdle() {
+    playerState = State.Idle;
   }
 
   public void SetDisable() {
     playerState = State.Disable;
+  }
+
+  public void SetIsHolding(bool isHolding) {
+    if (isHolding) playerState = State.IsHolding;
+    else playerState = State.Idle;
+  }
+
+  public bool GetIsHolding() {
+    return playerState == State.IsHolding;
   }
 }
