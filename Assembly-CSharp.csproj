@@ -266,6 +266,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\Sketchfab For Unity\Dependencies\Shaders\GLTFBumpToNormal.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\Import\Computer_Desk\license.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Materials\VHS\PostEffects\BarrelBlur\Shader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
