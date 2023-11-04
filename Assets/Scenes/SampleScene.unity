@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 01d1b57df3339ce4cbdf5049b4b45218, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -11740,6 +11740,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 1472395730}
   player: {fileID: 14497199}
+  enemy: {fileID: 0}
+  animationHolder: {fileID: 0}
   target: {fileID: 4649279337063050825, guid: 31124f1261d32ce4699c782a0294a03c, type: 3}
 --- !u!1 &1784611494
 GameObject:
