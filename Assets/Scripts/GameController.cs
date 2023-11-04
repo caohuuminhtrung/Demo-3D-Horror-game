@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,26 +9,65 @@ public class GameController : MonoBehaviour
 {
   public GameObject canvas;
   public PlayerController player;
+  public GameObject enemy;
+  public GameObject animationHolder;
   DialogueController dialogueController;
+  readonly Dialogues dialogues = new();
   FirstCutscene firstCutscene;
+  SecondCutscene secondCutscene;
   GameObject pickedUpObject;
   public GameObject target;
 
   ItemDictionary itemDictionary;
+  int stage = 1;
+  bool playStage = true;
+  JumpscareScene jumpscareScene;
   // Start is called before the first frame update
   void Start()
   {
     itemDictionary = new ItemDictionary();
-    player.SetDisable();
     firstCutscene = gameObject.AddComponent<FirstCutscene>();
+    secondCutscene = gameObject.AddComponent<SecondCutscene>();
+    jumpscareScene = gameObject.AddComponent<JumpscareScene>();
+
     dialogueController = gameObject.AddComponent<DialogueController>();
     dialogueController.canvas = canvas;
-    StartCoroutine(firstCutscene.Play(dialogueController, player.gameObject));
+    dialogueController.player = player.GetComponent<PlayerController>();
   }
 
   // Update is called once per frame
   void Update()
   {
+    if (Input.GetKeyDown(KeyCode.T)) {
+      StartCoroutine(jumpscareScene.Play(player.gameObject, enemy, animationHolder));
+    }
+    if (stage == 1 && playStage) {
+      StartCoroutine(firstCutscene.Play(dialogueController, player.gameObject));
+      stage = 2;
+      playStage = false;
+    }
+    if (stage == 2 && playStage) {
+      HidePrompt();
+      StartCoroutine(dialogueController.ShowDialogue(dialogues.dialogues[1]));
+
+      GameObject.Find("Pill Bottle Pickup").gameObject.layer = LayerMask.NameToLayer("Interactive Objects");
+      playStage = false;
+      stage = 3;
+    }
+    if (stage == 3 && playStage) {
+      HidePrompt();
+      StartCoroutine(dialogueController.ShowDialogue(dialogues.dialogues[2]));
+      GameObject.Find("Bed").layer = LayerMask.NameToLayer("Interactive Objects");
+      
+      playStage = false;
+      stage = 4;
+    }
+    if (stage == 4 && playStage) {
+      HidePrompt();
+      StartCoroutine(secondCutscene.Play(dialogueController, player.gameObject));
+      stage = 5;
+      playStage = false;
+    }
   }
 
   public void ShowPrompt(GameObject hitObject) {
@@ -53,7 +93,6 @@ public class GameController : MonoBehaviour
     }
     if (hitObject.CompareTag("Item") && !player.GetIsHolding()) {
       player.SetIsHolding(true);
-      Debug.Log(itemDictionary.itemDictionary[hitObject.name]);
       Instantiate(target, itemDictionary.itemDictionary[hitObject.name], Quaternion.identity);
       pickedUpObject = hitObject;
       pickedUpObject.AddComponent<PickupBehavior>();
@@ -62,9 +101,15 @@ public class GameController : MonoBehaviour
     if (hitObject.CompareTag("Target") && player.GetIsHolding()) {
       player.SetIsHolding(false);
       Destroy(pickedUpObject.GetComponent<PickupBehavior>());
-      pickedUpObject.transform.parent = GameObject.Find("Room").gameObject.transform;
+      pickedUpObject.transform.parent = GameObject.Find("Room").transform;
       pickedUpObject.transform.SetPositionAndRotation(hitObject.transform.position, hitObject.transform.rotation);
+      pickedUpObject.layer = LayerMask.NameToLayer("Default");
       Destroy(hitObject.transform.parent.gameObject);
+      playStage = true;
+    }
+    if (hitObject.CompareTag("Bed")) {
+      playStage = true;
+      hitObject.layer = LayerMask.NameToLayer("Default");
     }
   }
 

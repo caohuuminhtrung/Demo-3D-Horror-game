@@ -1,0 +1,11 @@
+Model Information:
+* title:	Base Men Body Mesh (Low Poly)
+* source:	https://sketchfab.com/3d-models/base-men-body-mesh-low-poly-3b8700bb59b149a29dc545f2bcc7256c
+* author:	Three Dog Night (https://sketchfab.com/ThreeDogNight404)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Base Men Body Mesh (Low Poly)" (https://sketchfab.com/3d-models/base-men-body-mesh-low-poly-3b8700bb59b149a29dc545f2bcc7256c) by Three Dog Night (https://sketchfab.com/ThreeDogNight404) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

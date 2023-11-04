@@ -344,8 +344,8 @@
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Graphs\AbstractShaderProperty.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Interface\IConditional.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Drawing\Interfaces\ISGControlledElement.cs" />
-    <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Generation\Targets\BuiltIn\Editor\ShaderGraph\AssetCallbacks\CreateLitShaderGraph.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Nodes\GeometryNode.cs" />
+    <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Generation\Targets\BuiltIn\Editor\ShaderGraph\AssetCallbacks\CreateLitShaderGraph.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Nodes\Math\Matrix\MatrixConstructionNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Interfaces\IMayRequireTime.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Drawing\Controls\TextureArrayControl.cs" />
@@ -674,8 +674,8 @@
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Legacy\AbstractMaterialNode0.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Interfaces\IMayRequireVertexColor.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Drawing\Views\Slots\ColorSlotControlView.cs" />
-    <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Nodes\Input\Texture\SampleVirtualTextureNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Drawing\Views\PropertyRow.cs" />
+    <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Nodes\Input\Texture\SampleVirtualTextureNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Nodes\Procedural\Shape\RoundedPolygonNode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Interfaces\IPropertyDrawer.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.9\Editor\Data\Nodes\UV\PolarCoordinatesNode.cs" />

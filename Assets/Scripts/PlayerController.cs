@@ -42,7 +42,10 @@ public class PlayerController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if (playerState == State.Disable) return;
+    if (playerState == State.Disable) {
+      audioSource.enabled = false;
+      return;
+    }
     CheckSpherecast(castRadius, castDistance, castLayerMask);
     float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity;
     float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity;
@@ -52,8 +55,6 @@ public class PlayerController : MonoBehaviour
     yRotation += mouseX;
     xRotation -= mouseY;
     xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-    
 
     orientation.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     transform.rotation = Quaternion.Euler(0, yRotation, 0);
@@ -99,7 +100,6 @@ public class PlayerController : MonoBehaviour
     if (Physics.SphereCast(playerCamera.transform.position, radius, ray.direction, out hitInfo, detectableDistance, detectableLayer))
     {
       gameController.ShowPrompt(hitInfo.transform.gameObject);
-
       if (Input.GetKeyDown(KeyCode.E))
       {
         gameController.InteractObject(hitInfo.transform.gameObject);

@@ -234,8 +234,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 14497197}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70709646, y: 0.0038257854, z: 0.0038257854, w: 0.70709646}
-  m_LocalPosition: {x: 7.696816, y: 2.5004864, z: -2.1799998}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 7.7, y: 2.5, z: -3}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1.0000002}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -245,7 +245,7 @@ Transform:
   - {fileID: 1671242184}
   - {fileID: 311792761}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0.62}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!114 &14497199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ MonoBehaviour:
   playerCamera: {fileID: 963194225}
   orientation: {fileID: 1671242183}
   gameController: {fileID: 1783933017}
-  sensitivity: 1000
+  sensitivity: 500
   speed: 5
   runSpeed: 8
   smoothValue: 7
@@ -1824,7 +1824,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 298240199}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GLTF_SceneRootNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5074,9 +5074,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 854016751}
-  - component: {fileID: 854016752}
+  - component: {fileID: 854016753}
+  - component: {fileID: 854016754}
   m_Layer: 0
-  m_Name: Light
+  m_Name: Room Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5100,7 +5101,103 @@ Transform:
   - {fileID: 481407165}
   m_Father: {fileID: 1415296944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &854016752
+--- !u!82 &854016753
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 854016750}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4668c205469de954a99fee024906d7b5, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.52
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &854016754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5448,6 +5545,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 49.812, y: -150.475, z: -132.778}
+--- !u!1 &927517029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927517030}
+  - component: {fileID: 927517032}
+  - component: {fileID: 927517031}
+  m_Layer: 5
+  m_Name: Crosshair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &927517030
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927517029}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1472395736}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10, y: 10}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &927517031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927517029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.2627451}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 4c853afbdb71d73448979d7219931d92, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &927517032
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927517029}
+  m_CullTransparentMesh: 1
 --- !u!1 &939405902
 GameObject:
   m_ObjectHideFlags: 0
@@ -6448,7 +6620,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1120313494}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder.003_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10009,7 +10181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -10055,6 +10227,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 927517030}
   - {fileID: 399251828}
   - {fileID: 173165873}
   m_Father: {fileID: 0}
@@ -10313,7 +10486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1586853404}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cylinder.001_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11013,8 +11186,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1718816868}
-  m_Layer: 6
-  m_Name: Pill Bottle
+  - component: {fileID: 1718816869}
+  m_Layer: 0
+  m_Name: Pill Bottle Pickup
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11036,6 +11210,27 @@ Transform:
   - {fileID: 298240199}
   m_Father: {fileID: 3063487821724714245}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!65 &1718816869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718816867}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2, y: 0.2, z: 0.4}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1732009132
 GameObject:
   m_ObjectHideFlags: 0
@@ -11079,7 +11274,7 @@ GameObject:
   - component: {fileID: 1733630247}
   - component: {fileID: 1733630249}
   - component: {fileID: 1733630248}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Object_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14295,7 +14490,7 @@ GameObject:
   - component: {fileID: 2077956315}
   - component: {fileID: 2077956317}
   - component: {fileID: 2077956316}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Object_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14971,7 +15166,7 @@ GameObject:
   - component: {fileID: 6428727752238457933}
   - component: {fileID: 7488608100326388159}
   - component: {fileID: 8587996166951097579}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Plane.007_Plane.002_Napkin_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18029,7 +18224,7 @@ Transform:
   m_GameObject: {fileID: 7816163710200426585}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -27.7, y: -2.36, z: -9.82}
+  m_LocalPosition: {x: -27.7, y: -2.911, z: -9.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18315,7 +18510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1702818915730346956}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Spoon_Sphere
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -18822,7 +19017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8108798849223891501}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19223,7 +19418,7 @@ GameObject:
   - component: {fileID: 7733397469135056767}
   - component: {fileID: 3233968059012328251}
   - component: {fileID: 4947807729493223579}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Circle_Food_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19356,7 +19551,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6414200887893973543}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bowl_Sphere
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -20567,7 +20762,7 @@ GameObject:
   - component: {fileID: 5574184249159437130}
   - component: {fileID: 3156321778730521370}
   - component: {fileID: 6012891836075394965}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Object_4
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -20964,9 +21159,10 @@ GameObject:
   - component: {fileID: 6752726111514858002}
   - component: {fileID: 7645241948199329207}
   - component: {fileID: 5619837311010662781}
+  - component: {fileID: 7645241948199329208}
   m_Layer: 0
   m_Name: Bed
-  m_TagString: Untagged
+  m_TagString: Bed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21577,8 +21773,8 @@ Transform:
   m_GameObject: {fileID: 6268254433875413160}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -5.22, y: -2.4799995, z: -5.1085544}
-  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
+  m_LocalPosition: {x: -5.22, y: -2.564, z: -5.42}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1415296944}
@@ -21878,7 +22074,7 @@ GameObject:
   - component: {fileID: 7544808345924726387}
   - component: {fileID: 3998637429005614034}
   - component: {fileID: 2220337972744690188}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Roundcube.001_Tray_0
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -22121,7 +22317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1845855599865591649}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Roundcube.001
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -22235,7 +22431,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2600224401260799924}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Plane.007_Plane.002
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -22604,6 +22800,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6268254433875413160}
   m_Mesh: {fileID: 4787136918717088048, guid: 163ba27c5d1321f429828eab7c7cf5ac, type: 3}
+--- !u!65 &7645241948199329208
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268254433875413160}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.631457, y: 0.1, z: 11.046457}
+  m_Center: {x: -0.47750282, y: 0.3, z: 0.6416916}
 --- !u!4 &7647313196105901351
 Transform:
   m_ObjectHideFlags: 0
@@ -23671,7 +23888,7 @@ GameObject:
   - component: {fileID: 4153298297912508406}
   - component: {fileID: 6174462714575892231}
   - component: {fileID: 2910433321166229142}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Bowl_Sphere_Oak_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23687,7 +23904,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4877008118512564250}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RootNode
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -24082,7 +24299,7 @@ GameObject:
   - component: {fileID: 4763745875323616082}
   - component: {fileID: 4875175359514975027}
   - component: {fileID: 4996296746555260468}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Spoon_Sphere_spoonBIG_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabExporter.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\SmoothFollow.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyIdleState.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\SimpleActivatorMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
@@ -82,12 +83,12 @@
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabUI.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\CameraRefocus.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\DotMatrix\DotMatrixEffect.cs" />
-    <Compile Include="Assets\Scripts\FadeScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\PolarPixelate\PolarPixelateEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\SimpleMouseRotator.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\Scanlines\ScanlinesEffect.cs" />
     <Compile Include="Assets\Sketchfab For Unity\Scripts\AssetBrowser\SketchfabModelWindow.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\HueSaturation\HueSaturationEffect.cs" />
+    <Compile Include="Assets\Scripts\Cutscenes\SecondCutscene.cs" />
     <Compile Include="Assets\Scripts\Cutscenes\FirstCutscene.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\Ripple\RippleEffect.cs" />
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabImporter.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\ForcedReset.cs" />
     <Compile Include="Assets\Scripts\PickupBehavior.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+    <Compile Include="Assets\Scripts\Cutscenes\JumpscareScene.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\Emboss\EmbossEffect.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\WaypointProgressTracker.cs" />
@@ -174,6 +177,8 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\TimedObjectActivator.cs" />
     <Compile Include="Assets\Scripts\Door\DoorOpenState.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyPrepareState.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyBaseState.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\BadTV\BadTVEffect.cs" />
     <Compile Include="Assets\Scripts\DialogueController.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
@@ -189,8 +194,10 @@
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\InstaColor\InstaColorEffect.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\HarfTone\HarfToneEffect.cs" />
+    <Compile Include="Assets\Scripts\FadeController.cs" />
     <Compile Include="Assets\Scripts\Door\DoorManager.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Environment\Water\Water\Scripts\PlanarReflection.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyAttackState.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\PlatformSpecificContent.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
@@ -204,6 +211,7 @@
     <None Include="Assets\Models &amp; Prefab\VHS\PostEffects\Bleach\Shader.shader" />
     <None Include="Assets\Sketchfab For Unity\Dependencies\Shaders\GLTFFlipTexture.shader" />
     <None Include="Assets\Import\Arrow\license.txt" />
+    <None Include="Assets\Import\Base_Men_Body_Mesh_(Low_Poly)\license.txt" />
     <None Include="Assets\Import\Suzume_Door_(Suzume_no_Tojimari_-_)\license.txt" />
     <None Include="Assets\Models &amp; Prefab\Tree 2\license.txt" />
     <None Include="Assets\Sketchfab For Unity\Dependencies\Shaders\GLTFColorSpace.cginc" />
