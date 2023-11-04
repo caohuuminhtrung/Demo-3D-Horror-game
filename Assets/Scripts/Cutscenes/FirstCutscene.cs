@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class FirstCutscene : MonoBehaviour
 {
   readonly Dialogues dialogues = new Dialogues();
-  IEnumerator Dialogue(DialogueController dialogueController) {
+
+  IEnumerator DisablePlayer(GameObject player)
+  {
+    player.GetComponent<PlayerController>().SetDisable();
+    yield return null;
+  }
+
+  IEnumerator Dialogue(DialogueController dialogueController, GameObject player) {
     yield return dialogueController.ShowDialogue(dialogues.dialogues[0]);
     yield return null;
   }
@@ -24,10 +30,9 @@ public class FirstCutscene : MonoBehaviour
 
   public IEnumerator Play(DialogueController dialogueController, GameObject player)
   {
-    yield return Dialogue(dialogueController);
-    yield return new WaitForSeconds(0.1f);
+    yield return Dialogue(dialogueController, player);
+    yield return DisablePlayer(player);
     yield return WakeUp(player);
-    yield return new WaitForSeconds(0.1f);
     yield return EnablePlayer(player);
   }
 }

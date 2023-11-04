@@ -9,6 +9,9 @@ TagManager:
   - SkyboxCamera
   - Item
   - Target
+  - Bed
+  - Enemy
+  - Compartment
   layers:
   - Default
   - TransparentFX

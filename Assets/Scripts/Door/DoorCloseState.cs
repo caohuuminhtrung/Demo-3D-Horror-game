@@ -8,7 +8,5 @@ public class DoorCloseState : DoorBaseState
     door.transform.localEulerAngles = new Vector3(0, 0, 0);
   }
 
-  public override void updateState(DoorManager door) {
-    
-  }
+  public override void updateState(DoorManager door) {}
 }
