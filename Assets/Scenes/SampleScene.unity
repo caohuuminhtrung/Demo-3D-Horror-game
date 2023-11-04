@@ -15336,6 +15336,7 @@ GameObject:
   - component: {fileID: 2102523677}
   - component: {fileID: 2102523678}
   - component: {fileID: 2102523679}
+  - component: {fileID: 2102523680}
   m_Layer: 6
   m_Name: Door Main
   m_TagString: Door
@@ -15489,6 +15490,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &2102523680
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102523675}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8578651e8413e5b4b8e5b39bbb26eb32, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &2114273651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7316832119083424907, guid: c2c5bcfeed2bb6d4882ee9a34bd13ecf, type: 3}
@@ -18893,14 +18915,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727217488638360124}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000030908616, y: 0.7071067, z: -0.7071068, w: 0.00000003090862}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 119.2199, z: -5.054283}
   m_LocalScale: {x: 64.9005, y: 5, z: 125}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4326655845707568877}
   m_Father: {fileID: 1910490346610669775}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -180}
 --- !u!4 &3035271852723683464
 Transform:
   m_ObjectHideFlags: 0
@@ -22436,7 +22458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &6646436515915420075
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22454,7 +22476,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 133.0062, y: 244.88933, z: 16.215763}
   m_Center: {x: -1.7778039, y: 121.94456, z: -7.607875}
