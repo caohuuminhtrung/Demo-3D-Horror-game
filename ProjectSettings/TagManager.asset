@@ -12,6 +12,11 @@ TagManager:
   - Bed
   - Enemy
   - Compartment
+  - BaseMovementPos
+  - WindowMovementPos
+  - PreWindowMovementPos
+  - HallwayMovementPos
+  - DoorMovementPos
   layers:
   - Default
   - TransparentFX
