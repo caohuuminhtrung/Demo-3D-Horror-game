@@ -83,6 +83,7 @@
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabUI.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\CameraRefocus.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\DotMatrix\DotMatrixEffect.cs" />
+    <Compile Include="Assets\Scripts\FadeScript.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\PolarPixelate\PolarPixelateEffect.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
