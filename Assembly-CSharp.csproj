@@ -93,10 +93,12 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\SimpleMouseRotator.cs" />
+    <Compile Include="Assets\Scripts\MainMenuCamera.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\RGBShift\RGBShiftEffect.cs" />
     <Compile Include="Assets\Samples\Universal RP\12.1.11\URP Package Samples\CameraStacking\3D Skybox\Scripts\SkyboxCamera.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+    <Compile Include="Assets\Scripts\SoundManager\ButtonClicks.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\ObjectResetter.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\Mirror\MirrorEffect.cs" />
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabLogger.cs" />
@@ -185,8 +187,10 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
+    <Compile Include="Assets\Kino\Glitch\AnalogGlitch.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Environment\Water\Water\Scripts\MeshContainer.cs" />
+    <Compile Include="Assets\Kino\Glitch\DigitalGlitch.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\LerpControlledBob.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
@@ -263,6 +267,8 @@
     <None Include="Assets\Sketchfab For Unity\Dependencies\Libraries\SketchfabPlugin.dll" />
     <None Include="Assets\Samples\Universal RP\12.1.11\URP Package Samples\SharedAssets\Shaders\3DText.shader" />
     <None Include="Assets\Models &amp; Prefab\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+    <None Include="Assets\Kino\Glitch\Shader\DigitalGlitch.shader" />
+    <None Include="Assets\Kino\Glitch\Shader\AnalogGlitch.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\Models &amp; Prefab\Tube_Light\license.txt" />
     <None Include="Assets\Import\Dirty_Socks\license.txt" />
