@@ -7,22 +7,16 @@ public class EnemyAttackState : EnemyBaseState
 {
   Vector3 playerPos, playerDirection;
   Quaternion playerRotation;
-  public override void enterState(EnemyController enemyController)
+  public override void enterState(EnemyController enemy)
   {
-    playerPos = enemyController.player.transform.position;
-    playerRotation = enemyController.player.transform.rotation;
-    playerDirection = enemyController.player.transform.forward;
-
-    float spawnDistance = 10;
-
-    Vector3 spawnPos = playerPos + playerDirection * spawnDistance;
-    spawnPos.y = spawnPos.y + 5;
-
-    enemyController.transform.SetPositionAndRotation(spawnPos, playerRotation);
+    Debug.Log("attack!");
+    StopCoroutine(enemy.EnemyMovementBehaviour(enemy.AIlevel));
   }
+
 
   public override void updateState(EnemyController enemyController)
   {
-    enemyController.SetBasePosition();
+    return;
   }
+
 }

@@ -1,66 +1,83 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 
 public class EnemyPrepareState : EnemyBaseState
 {
-  Vector3 enemyPos, doorPos, windowPos;
-  Quaternion doorRotation, windowRotation;
-
-  public override void enterState(EnemyController enemyController)
+  Vector3 enemyPos, initialPos, hallwayPos, preWindowPos, doorPos, windowPos, wardrobePos;
+  Quaternion doorRotation, windowRotation, wardrobeRotation;
+  float counter = 0;
+  EnemyController enemyController;
+  DoorManager doorController;
+  void Update()
   {
-    enemyPos = enemyController.transform.position;
-
-    doorPos = enemyController.doorPos.transform.position;
-    doorRotation = enemyController.doorPos.transform.rotation;
-
-    windowPos = enemyController.windowPos.transform.position;
-    windowRotation = enemyController.windowPos.transform.rotation;
-
-    //update sate
-    enemyController.currentState = enemyController.enemyPrepareState;
-
-    if (enemyPos == doorPos)
+    enemyController = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyController>();
+    if (enemyController.currentState.GetType().Equals(typeof(EnemyPrepareState)))
     {
-      Debug.Log("enemy at window");
-      enemyController.transform.SetPositionAndRotation(windowPos, windowRotation);
-      return;
-    }
-    else if (enemyPos == windowPos)
-    {
-      Debug.Log("enemy at door");
-      enemyController.transform.SetPositionAndRotation(doorPos, doorRotation);
-      return;
-    }
-
-
-
-    if (Random.Range(0, 2) == 0)
-    {
-
-      enemyController.transform.SetPositionAndRotation(doorPos, doorRotation);
-      Debug.Log("enemy at door");
-      return;
-    }
-    else
-    {
-      enemyController.transform.SetPositionAndRotation(windowPos, windowRotation);
-      Debug.Log("enemy at window");
-      return;
+      counter += Time.deltaTime;
+      Debug.Log(counter);
     }
   }
 
-  public override void updateState(EnemyController enemyController)
+  public override void enterState(EnemyController enemy)
   {
-    if (Random.Range(0, 2) == 0)
+
+    enemyPos = enemy.transform.position;
+
+    initialPos = enemy.basePos.transform.position;
+
+    hallwayPos = enemy.hallwayPos.transform.position;
+    preWindowPos = enemy.preWindowPos.transform.position;
+
+    doorPos = enemy.doorPos.transform.position;
+    doorRotation = enemy.doorPos.transform.rotation;
+
+    windowPos = enemy.windowPos.transform.position;
+    windowRotation = enemy.windowPos.transform.rotation;
+
+    wardrobePos = enemy.WardrobePos.transform.position;
+    wardrobeRotation = enemy.WardrobePos.transform.rotation;
+
+
+    if (enemyPos == preWindowPos)
     {
-      enemyController.currentState = null;
-      enemyController.SetBasePosition();
+
+      //if enemy is near window then move to window
+      Debug.Log("enemy at window");
+      enemy.transform.SetPositionAndRotation(windowPos, windowRotation);
+      enemy.playCrawlAnimID();
+      // return;
     }
-    else
+    else if (enemyPos == hallwayPos)
     {
-      enemyController.currentState = enemyController.enemyAttackState;
-      // enemyController.SetBasePosition();
+
+      //if enemy is at hallway then move to door
+      Debug.Log("enemy at door");
+      enemy.transform.SetPositionAndRotation(doorPos, doorRotation);
+      doorController = GameObject.FindGameObjectWithTag("Door").GetComponent<DoorManager>();
+      doorController.switchState(doorController.doorHalfOpenState);
+      enemy.playWaveAnimID();
+      if (Random.Range(0, 5) == 0)
+      {
+        enemy.playWaveAnimID();
+      }
+      // return;
+    }
+    else if (enemyPos == initialPos || enemy.RNGcount == enemy.RNGlimit)
+    {
+      Debug.Log("enemy jumped into wardrobe");
+      enemy.transform.SetPositionAndRotation(wardrobePos, wardrobeRotation);
+      // return;
     }
   }
+
+
+  public override void updateState(EnemyController enemy)
+  {
+    return;
+  }
+
+
 }

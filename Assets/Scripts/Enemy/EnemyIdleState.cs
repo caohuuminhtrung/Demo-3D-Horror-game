@@ -4,56 +4,54 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyBaseState
 {
-  Vector3 enemyPos, hallwayPos, preWindowPos;
+  Vector3 hallwayPos, preWindowPos;
   Quaternion hallwayRotation, preWindowRotation;
-  public override void enterState(EnemyController enemyController)
+
+  public override void enterState(EnemyController enemy)
   {
-    enemyPos = enemyController.transform.position;
+    hallwayPos = enemy.hallwayPos.transform.position;
+    hallwayRotation = enemy.hallwayPos.transform.rotation;
 
-    hallwayPos = enemyController.hallwayPos.transform.position;
-    hallwayRotation = enemyController.hallwayPos.transform.rotation;
+    preWindowPos = enemy.preWindowPos.transform.position;
+    preWindowRotation = enemy.preWindowPos.transform.rotation;
 
-    preWindowPos = enemyController.preWindowPos.transform.position;
-    preWindowRotation = enemyController.preWindowPos.transform.rotation;
-
-    if (enemyPos == hallwayPos)
-    {
-      enemyController.transform.SetPositionAndRotation(preWindowPos, preWindowRotation);
-      Debug.Log("enemy near window");
-      return;
-    }
-    else if (enemyPos == preWindowPos)
-    {
-      enemyController.transform.SetPositionAndRotation(hallwayPos, hallwayRotation);
-      Debug.Log("enemy at hallway");
-      return;
-    }
-
+    //randomly choosing between appearing at hallway or near window
     if (Random.Range(0, 2) == 0)
     {
-      enemyController.transform.SetPositionAndRotation(hallwayPos, hallwayRotation);
+      //enemy apprearing at hallway
+      enemy.transform.SetPositionAndRotation(hallwayPos, hallwayRotation);
+      enemy.playIdleAnimID();
       Debug.Log("enemy at hallway");
       return;
     }
     else
     {
-      enemyController.transform.SetPositionAndRotation(preWindowPos, preWindowRotation);
+      if (Random.Range(0, 3) == 0)
+      {
+        if (Random.Range(0, 2) == 0)
+        {
+          enemy.windowKnocking1.Play();
+        }
+        else enemy.windowKnocking2.Play();
+      }
+      //enemy appearing at window
+      enemy.transform.SetPositionAndRotation(preWindowPos, preWindowRotation);
+      enemy.playIdleAnimID();
       Debug.Log("enemy near window");
       return;
     }
   }
 
-  public override void updateState(EnemyController enemyController)
+  public override void updateState(EnemyController enemy)
   {
+    //randomly move back to prepare state or initial state
     if (Random.Range(0, 2) == 0)
     {
-      enemyController.currentState = enemyController.enemyPrepareState;
+      enemy.SwitchState(enemy.enemyInitialState);
     }
     else
     {
-      enemyController.currentState = enemyController.enemyIdleState;
-      // enemyController.SetBasePosition();
+      enemy.SwitchState(enemy.enemyPrepareState);
     }
-    // enemyController.currentState.enterState(enemyController);
   }
 }
