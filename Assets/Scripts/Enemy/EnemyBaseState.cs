@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class EnemyBaseState : MonoBehaviour
 {
-  public abstract void enterState(EnemyController enemyController);
+  public abstract void enterState(EnemyController enemy);
 
-  public abstract void updateState(EnemyController enemyController);
+  public abstract void updateState(EnemyController enemy);
 }

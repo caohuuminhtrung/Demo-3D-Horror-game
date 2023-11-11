@@ -6,7 +6,7 @@ public class DoorKnockState : DoorBaseState
 {
   public override void enterState(DoorManager door)
   {
-    door.GetComponent<AudioSource>().Play();
+    door.knockSound.Play();
   }
 
   public override void updateState(DoorManager door)

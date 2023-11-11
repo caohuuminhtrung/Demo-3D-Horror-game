@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class DoorManager : MonoBehaviour
 {
-  
+
   public DoorBaseState currentState;
   DoorCloseState doorCloseState;
+  public DoorHalfOpenState doorHalfOpenState;
+
+  public AudioSource knockSound;
+  public AudioSource openSound;
 
   // Start is called before the first frame update
   void Start()
   {
     doorCloseState = gameObject.AddComponent<DoorCloseState>();
-    
+    doorHalfOpenState = gameObject.AddComponent<DoorHalfOpenState>();
+
     currentState = doorCloseState;
     currentState.enterState(this);
   }
@@ -23,7 +28,8 @@ public class DoorManager : MonoBehaviour
 
   }
 
-  public void switchState(DoorBaseState state) {
+  public void switchState(DoorBaseState state)
+  {
     currentState = state;
     state.enterState(this);
   }
