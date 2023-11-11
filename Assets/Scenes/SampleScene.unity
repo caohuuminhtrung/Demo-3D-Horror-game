@@ -4828,7 +4828,7 @@ Transform:
   m_GameObject: {fileID: 636944337}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00064}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16797,9 +16797,10 @@ GameObject:
   - component: {fileID: 8245273430556093611}
   - component: {fileID: 9122341330325542306}
   - component: {fileID: 9122341330325542307}
-  m_Layer: 0
+  - component: {fileID: 9122341330325542308}
+  m_Layer: 6
   m_Name: door_L
-  m_TagString: Untagged
+  m_TagString: Closet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26698,9 +26699,10 @@ GameObject:
   - component: {fileID: 4663303797928100649}
   - component: {fileID: 8129303430649620260}
   - component: {fileID: 8129303430649620261}
-  m_Layer: 0
+  - component: {fileID: 8129303430649620262}
+  m_Layer: 6
   m_Name: door_R
-  m_TagString: Untagged
+  m_TagString: Closet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26748,6 +26750,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8129303430649620262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129303430649620259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120b2160ff52b2044a10264b47370b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 0}
 --- !u!4 &8135435566371918070
 Transform:
   m_ObjectHideFlags: 0
@@ -27439,8 +27454,7 @@ GameObject:
   - component: {fileID: 5289107499161382957}
   - component: {fileID: 7963024357260690663}
   - component: {fileID: 9135961593200344969}
-  - component: {fileID: 9135961593200344970}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Wardrobe
   m_TagString: Closet
   m_Icon: {fileID: 0}
@@ -28098,6 +28112,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9122341330325542308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497969870476304622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120b2160ff52b2044a10264b47370b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: {fileID: 0}
 --- !u!4 &9134907269845825408
 Transform:
   m_ObjectHideFlags: 0
@@ -28152,19 +28179,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.012563408, y: 0.006440361, z: 0.019635519}
   m_Center: {x: -0.000015741347, y: 0.0003785355, z: 0.009817782}
---- !u!114 &9135961593200344970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8467510598289138994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 120b2160ff52b2044a10264b47370b25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentState: {fileID: 0}
 --- !u!1 &9146825082014499034
 GameObject:
   m_ObjectHideFlags: 0
