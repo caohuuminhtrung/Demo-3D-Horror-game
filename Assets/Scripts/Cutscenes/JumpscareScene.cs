@@ -12,7 +12,7 @@ public class JumpscareScene : MonoBehaviour
     player.transform.parent = animationHolder.transform;
     player.GetComponent<Animator>().enabled = true;
     player.GetComponent<Animator>().Play("Camera Shake");
-    enemy.transform.position = Camera.main.transform.position + Camera.main.transform.forward + new Vector3(0, -2.5f, 0);
+    enemy.transform.position = Camera.main.transform.position + Camera.main.transform.forward + new Vector3(0, -6.5f, 0);
     enemy.transform.LookAt(Camera.main.transform);
     enemy.transform.eulerAngles += new Vector3(45f, 0, 0);
     player.transform.Find("JumpscareSound").GetComponent<AudioSource>().Play();
