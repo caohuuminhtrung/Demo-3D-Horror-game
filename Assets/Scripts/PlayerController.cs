@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
   public float castDistance;
   public LayerMask castLayerMask;
 
+  private float increaseSpeed = 5f;
+  private float decreaseSpeed = 5f;
+  private float customHorizontalInput = 0f;
+  private float customVerticalInput = 0f;
   private float timer = Mathf.PI / 2;
   private float defaultPosY = 0;
   private float xRotation;
@@ -29,7 +33,6 @@ public class PlayerController : MonoBehaviour
     IsHolding
   };
   private State playerState;
-  // Start is called before the first frame update
   void Start()
   {
     playerState = State.Idle;
@@ -39,7 +42,6 @@ public class PlayerController : MonoBehaviour
     Cursor.visible = false;
   }
 
-  // Update is called once per frame
   void Update()
   {
     if (playerState == State.Disable) {
@@ -47,10 +49,10 @@ public class PlayerController : MonoBehaviour
       return;
     }
     CheckSpherecast(castRadius, castDistance, castLayerMask);
-    float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity;
-    float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity;
-    float movementX = Input.GetAxis("Horizontal");
-    float movementY = Input.GetAxis("Vertical");
+    float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity * GameInput.Key.Sensitivity;
+    float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity * GameInput.Key.Sensitivity;
+    float movementX = GetCustomHorizontalInput();
+    float movementY = GetCustomVerticalInput();
 
     yRotation += mouseX;
     xRotation -= mouseY;
@@ -59,7 +61,7 @@ public class PlayerController : MonoBehaviour
     orientation.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     transform.rotation = Quaternion.Euler(0, yRotation, 0);
 
-    if (Input.GetKey(KeyCode.LeftShift)) {
+    if (GameInput.Key.GetKey("Sprint")) {
       rb.transform.Translate(runSpeed * Time.deltaTime * new Vector3(movementX, 0, movementY));
     } else {
       rb.transform.Translate(speed * Time.deltaTime * new Vector3(movementX, 0, movementY));
@@ -85,7 +87,33 @@ public class PlayerController : MonoBehaviour
     }
     
   }
+  private float GetCustomHorizontalInput(){
+    if (GameInput.Key.GetKey("Right")){
+      customHorizontalInput = Mathf.MoveTowards(customHorizontalInput, 1f, increaseSpeed * Time.deltaTime);
+    }
+    else if (GameInput.Key.GetKey("Left")){
+      customHorizontalInput = Mathf.MoveTowards(customHorizontalInput, -1f, decreaseSpeed * Time.deltaTime);
+    }
+    else{
+      customHorizontalInput = Mathf.MoveTowards(customHorizontalInput, 0f, decreaseSpeed * Time.deltaTime);
+    }
 
+    return customHorizontalInput;
+  }
+
+  private float GetCustomVerticalInput(){
+    if (GameInput.Key.GetKey("Forward")){
+      customVerticalInput = Mathf.MoveTowards(customVerticalInput, 1f, increaseSpeed * Time.deltaTime);
+    }
+    else if (GameInput.Key.GetKey("Backward")){
+      customVerticalInput = Mathf.MoveTowards(customVerticalInput, -1f, decreaseSpeed * Time.deltaTime);
+    }
+    else{
+      customVerticalInput = Mathf.MoveTowards(customVerticalInput, 0f, decreaseSpeed * Time.deltaTime);
+    }
+
+    return customVerticalInput;
+  }
   void LateUpdate() {
     playerCamera.transform.rotation = Quaternion.Slerp(playerCamera.transform.rotation, 
       orientation.transform.rotation, 
@@ -100,7 +128,7 @@ public class PlayerController : MonoBehaviour
     if (Physics.SphereCast(playerCamera.transform.position, radius, ray.direction, out hitInfo, detectableDistance, detectableLayer))
     {
       gameController.ShowPrompt(hitInfo.transform.gameObject);
-      if (Input.GetKeyDown(KeyCode.E))
+      if (GameInput.Key.GetKeyDown("Interact"))
       {
         gameController.InteractObject(hitInfo.transform.gameObject);
       }

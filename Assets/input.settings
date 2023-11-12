@@ -1,0 +1,7 @@
+Forward=273
+Backward=274
+Left=276
+Right=275
+Sprint=304
+Interact=101
+MouseSens=10
