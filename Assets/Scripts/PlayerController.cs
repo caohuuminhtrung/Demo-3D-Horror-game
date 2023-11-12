@@ -155,4 +155,18 @@ public class PlayerController : MonoBehaviour
   public bool GetIsHolding() {
     return playerState == State.IsHolding;
   }
+
+  void OnTriggerEnter(Collider other)
+  {
+    if (other.gameObject.CompareTag("Closet"))
+    {
+    }
+  }
+
+  void OnTriggerExit(Collider other)
+  {
+    if (other.gameObject.CompareTag("Closet"))
+    {
+    }
+  }
 }

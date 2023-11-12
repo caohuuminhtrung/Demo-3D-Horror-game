@@ -133,29 +133,14 @@ public class GameController : MonoBehaviour
       playStage = true;
       hitObject.layer = LayerMask.NameToLayer("Default");
     }
-  }
-
-  public void OpenDoor(GameObject hitObject)
-  {
-    if (hitObject.CompareTag("Door"))
-    {
-      if (hitObject.GetComponent<DoorManager>().currentState.GetType() == typeof(DoorCloseState))
+    if (hitObject.CompareTag("Closet")) {
+      if (hitObject.GetComponent<ClosetManager>().currentState.GetType() == typeof(ClosetCloseState))
       {
-        hitObject.GetComponent<DoorManager>().switchState(new DoorOpenState());
+        hitObject.GetComponent<ClosetManager>().switchState(new ClosetOpenState());
       }
-    }
-  }
-
-  public void CloseDoor(GameObject hitObject)
-  {
-    if (hitObject != null)
-    {
-      if (hitObject.CompareTag("Door"))
+      else
       {
-        if (hitObject.GetComponent<DoorManager>().currentState.GetType() == typeof(DoorOpenState))
-        {
-          hitObject.GetComponent<DoorManager>().switchState(new DoorCloseState());
-        }
+        hitObject.GetComponent<ClosetManager>().switchState(new ClosetCloseState());
       }
     }
   }

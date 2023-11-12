@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorOpenState : DoorBaseState
 {
-  float r;
   public override void enterState(DoorManager door) {
     door.transform.parent.GetComponent<BoxCollider>().enabled = false;
     if(door.transform.parent.rotation.y == 90){

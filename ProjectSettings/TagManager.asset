@@ -20,6 +20,7 @@ TagManager:
   - Menu
   - WardrobeMovementPos
   - EnemyModel
+  - Closet
   layers:
   - Default
   - TransparentFX
