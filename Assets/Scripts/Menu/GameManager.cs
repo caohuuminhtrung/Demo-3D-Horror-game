@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject pauseMenuUi;
+	public GameObject overlay;
 
 	public static bool IsPaused = false;
 	
@@ -13,13 +14,12 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {	
-			Debug.Log("123");
-		  	if (!IsPaused && pauseMenuUi != null){
-				Debug.Log("abc");
+		  	if (!IsPaused  && pauseMenuUi != null){
+				overlay.SetActive(false);
 				Time.timeScale = 0.0f;
 				Cursor.lockState = CursorLockMode.None;
 				Cursor.visible = true;
-				IsPaused = false;
+				IsPaused = true;
 				pauseMenuUi.SetActive(true);	
 			}
         	else if(IsPaused && pauseMenuUi != null){
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void ResumeGame(){
+		overlay.SetActive(true);
 		Time.timeScale = 1.0f;
 		Cursor.visible = false;
 		IsPaused = false;

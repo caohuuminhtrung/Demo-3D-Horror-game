@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
   public float castRadius;
   public float castDistance;
   public LayerMask castLayerMask;
+  private float increaseSpeed = 5f;
+  private float decreaseSpeed = 5f;
+  private float customHorizontalInput = 0f;
+  private float customVerticalInput = 0f;
 
   private float timer = Mathf.PI / 2;
   private float defaultPosY = 0;
@@ -47,10 +51,10 @@ public class PlayerController : MonoBehaviour
       return;
     }
     CheckSpherecast(castRadius, castDistance, castLayerMask);
-    float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity;
-    float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity;
-    float movementX = Input.GetAxis("Horizontal");
-    float movementY = Input.GetAxis("Vertical");
+    float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity * GameInput.Key.Sensitivity;
+    float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity * GameInput.Key.Sensitivity;
+    float movementX = GetCustomHorizontalInput();
+    float movementY = GetCustomVerticalInput();
 
     yRotation += mouseX;
     xRotation -= mouseY;
@@ -84,6 +88,33 @@ public class PlayerController : MonoBehaviour
       );
     }
     
+  }
+  private float GetCustomHorizontalInput(){
+    if (GameInput.Key.GetKey("Right")){
+      customHorizontalInput = Mathf.MoveTowards(customHorizontalInput, 1f, increaseSpeed * Time.deltaTime);
+    }
+    else if (GameInput.Key.GetKey("Left")){
+      customHorizontalInput = Mathf.MoveTowards(customHorizontalInput, -1f, decreaseSpeed * Time.deltaTime);
+    }
+    else{
+      customHorizontalInput = Mathf.MoveTowards(customHorizontalInput, 0f, decreaseSpeed * Time.deltaTime);
+    }
+
+    return customHorizontalInput;
+  }
+
+  private float GetCustomVerticalInput(){
+    if (GameInput.Key.GetKey("Forward")){
+      customVerticalInput = Mathf.MoveTowards(customVerticalInput, 1f, increaseSpeed * Time.deltaTime);
+    }
+    else if (GameInput.Key.GetKey("Backward")){
+      customVerticalInput = Mathf.MoveTowards(customVerticalInput, -1f, decreaseSpeed * Time.deltaTime);
+    }
+    else{
+      customVerticalInput = Mathf.MoveTowards(customVerticalInput, 0f, decreaseSpeed * Time.deltaTime);
+    }
+
+    return customVerticalInput;
   }
 
   void LateUpdate() {
