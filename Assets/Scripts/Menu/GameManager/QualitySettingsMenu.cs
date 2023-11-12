@@ -70,6 +70,7 @@ public class QualitySettingsMenu : MonoBehaviour
 		QualitySettings.shadowResolution = (ShadowResolution) System.Enum.Parse(typeof(ShadowResolution), PlayerPrefs.GetString("shadowRes", QualitySettings.shadowResolution.ToString()));
 		aniso = PlayerPrefs.GetInt("aniso", 16);
 		AnisoFiltering(aniso);
+		Screen.SetResolution(PlayerPrefs.GetInt("resolutionWidth", Screen.width), PlayerPrefs.GetInt("resolutionHeight", Screen.height), Screen.fullScreen);
 		fullscreenToggle.isOn = Screen.fullScreen;
 	}
 
@@ -81,6 +82,8 @@ public class QualitySettingsMenu : MonoBehaviour
 		PlayerPrefs.SetString("shadowRes", QualitySettings.shadowResolution.ToString());
 		PlayerPrefs.SetString("shadowQuality", QualitySettings.shadows.ToString());
 		PlayerPrefs.SetInt("aniso", af[anisotropic.value]);
+		PlayerPrefs.SetInt("resolutionWidth", Screen.currentResolution.width);
+		PlayerPrefs.SetInt("resolutionHeight", Screen.currentResolution.height);
 		PlayerPrefs.Save();
 	}
 
@@ -173,8 +176,9 @@ public class QualitySettingsMenu : MonoBehaviour
 		RefreshDropdown();
 	}
 
-	void PresetsSettings() 
+	private void PresetsSettings() 
 	{
+		Debug.Log("Preset Settings");
 		switch(qualityPreset.value){
 			case 0:
 				QualitySettings.vSyncCount = 0;
@@ -275,8 +279,9 @@ public class QualitySettingsMenu : MonoBehaviour
 		}
 	}
 
-	void ApplySettings()
+	private void ApplySettings()
 	{
+		Debug.Log("Apply Settings");
 		AnisoFiltering(af[anisotropic.value]);
 		QualitySettings.vSyncCount = (vSyncToggle.isOn) ? 1 : 0;
 		QualitySettings.globalTextureMipmapLimit = texRes[textureRes.value];
