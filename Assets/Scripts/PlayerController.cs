@@ -17,11 +17,11 @@ public class PlayerController : MonoBehaviour
   public float castRadius;
   public float castDistance;
   public LayerMask castLayerMask;
-
   private float increaseSpeed = 5f;
   private float decreaseSpeed = 5f;
   private float customHorizontalInput = 0f;
   private float customVerticalInput = 0f;
+
   private float timer = Mathf.PI / 2;
   private float defaultPosY = 0;
   private float xRotation;
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     IsHolding
   };
   private State playerState;
+  // Start is called before the first frame update
   void Start()
   {
     playerState = State.Idle;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     Cursor.visible = false;
   }
 
+  // Update is called once per frame
   void Update()
   {
     if (playerState == State.Disable) {
@@ -61,7 +63,7 @@ public class PlayerController : MonoBehaviour
     orientation.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
     transform.rotation = Quaternion.Euler(0, yRotation, 0);
 
-    if (GameInput.Key.GetKey("Sprint")) {
+    if (Input.GetKey(KeyCode.LeftShift)) {
       rb.transform.Translate(runSpeed * Time.deltaTime * new Vector3(movementX, 0, movementY));
     } else {
       rb.transform.Translate(speed * Time.deltaTime * new Vector3(movementX, 0, movementY));
@@ -114,6 +116,7 @@ public class PlayerController : MonoBehaviour
 
     return customVerticalInput;
   }
+
   void LateUpdate() {
     playerCamera.transform.rotation = Quaternion.Slerp(playerCamera.transform.rotation, 
       orientation.transform.rotation, 
@@ -128,7 +131,7 @@ public class PlayerController : MonoBehaviour
     if (Physics.SphereCast(playerCamera.transform.position, radius, ray.direction, out hitInfo, detectableDistance, detectableLayer))
     {
       gameController.ShowPrompt(hitInfo.transform.gameObject);
-      if (GameInput.Key.GetKeyDown("Interact"))
+      if (Input.GetKeyDown(KeyCode.E))
       {
         gameController.InteractObject(hitInfo.transform.gameObject);
       }
