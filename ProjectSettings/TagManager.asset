@@ -21,6 +21,8 @@ TagManager:
   - WardrobeMovementPos
   - EnemyModel
   - Closet
+  - JumpscareCamera
+  - JumpscareSound
   layers:
   - Default
   - TransparentFX

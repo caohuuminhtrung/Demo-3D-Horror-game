@@ -23,7 +23,7 @@ public class EnemyInitialState : EnemyBaseState
         else
         {
             //Switch to idle state
-            enemy.SwitchState(enemy.enemyIdleState);
+            enemy.SwitchState(enemy.enemyIdleState);    
         }
 
     }

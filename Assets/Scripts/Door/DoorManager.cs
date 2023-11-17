@@ -6,17 +6,21 @@ public class DoorManager : MonoBehaviour
 {
 
   public DoorBaseState currentState;
-  DoorCloseState doorCloseState;
+  public DoorCloseState doorCloseState;
+  public DoorOpenState doorOpenState;
   public DoorHalfOpenState doorHalfOpenState;
+  public DoorHalfCloseState doorHalfCloseState;
 
   public AudioSource knockSound;
   public AudioSource openSound;
 
   // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
+    doorOpenState = gameObject.AddComponent<DoorOpenState>();
     doorCloseState = gameObject.AddComponent<DoorCloseState>();
     doorHalfOpenState = gameObject.AddComponent<DoorHalfOpenState>();
+    doorHalfCloseState = gameObject.AddComponent<DoorHalfCloseState>();
 
     currentState = doorCloseState;
     currentState.enterState(this);

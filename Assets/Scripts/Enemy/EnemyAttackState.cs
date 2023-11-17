@@ -5,12 +5,14 @@ using UnityEngine.LowLevel;
 
 public class EnemyAttackState : EnemyBaseState
 {
-  Vector3 playerPos, playerDirection;
-  Quaternion playerRotation;
+  AudioSource jumpscareSound;
   public override void enterState(EnemyController enemy)
   {
     Debug.Log("attack!");
-    StopCoroutine(enemy.EnemyMovementBehaviour(enemy.AIlevel));
+    enemy.SetBasePosition();
+    enemy.StopAllCoroutines();
+
+    enemy.StartCoroutine(enemy.playAttackAnimID());
   }
 
 

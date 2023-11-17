@@ -5,23 +5,32 @@ using UnityEngine;
 public class ClosetManager : MonoBehaviour
 {
   public ClosetBaseState currentState;
-  ClosetBaseState closetCloseState;
+  public ClosetBaseState closetCloseState;
+  public ClosetOpenState closetOpenState;
+  public ClosetHalfCloseState closetHalfCloseState;
+  public ClosetHalfOpenState closetHalfOpenState;
+
+  public PlayerController player;
 
   // Start is called before the first frame update
-  void Start()
+  void Awake()
   {
-    closetCloseState = gameObject.AddComponent<ClosetCloseState>();
-    currentState = closetCloseState;
-  }
+    player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-  // Update is called once per frame
-  void Update()
-  {
-      
+    closetCloseState = gameObject.AddComponent<ClosetCloseState>();
+    closetOpenState = gameObject.AddComponent<ClosetOpenState>();
+    closetHalfCloseState = gameObject.AddComponent<ClosetHalfCloseState>();
+    closetHalfOpenState = gameObject.AddComponent<ClosetHalfOpenState>();
+
+    currentState = closetCloseState;
   }
 
   public void switchState(ClosetBaseState state)
   {
+    if (player.doorHeld)
+    {
+      return;
+    }
     currentState = state;
     state.enterState(this);
   }

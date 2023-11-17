@@ -21,19 +21,19 @@ public class EnemyIdleState : EnemyBaseState
       //enemy apprearing at hallway
       enemy.transform.SetPositionAndRotation(hallwayPos, hallwayRotation);
       enemy.playIdleAnimID();
+      if (Random.Range(0, 2) == 0)
+      {
+        enemy.footstep1.Play();
+      }
+      else
+      {
+        enemy.footstep2.Play();
+      }
       Debug.Log("enemy at hallway");
       return;
     }
     else
     {
-      if (Random.Range(0, 3) == 0)
-      {
-        if (Random.Range(0, 2) == 0)
-        {
-          enemy.windowKnocking1.Play();
-        }
-        else enemy.windowKnocking2.Play();
-      }
       //enemy appearing at window
       enemy.transform.SetPositionAndRotation(preWindowPos, preWindowRotation);
       enemy.playIdleAnimID();
