@@ -110,7 +110,6 @@
     <Compile Include="Assets\Scripts\LightBehavior.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\ActivateTrigger.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\TiltShift\TiltShiftEffect.cs" />
-    <Compile Include="Assets\StaticEffect.cs" />
     <Compile Include="Assets\Sketchfab For Unity\Scripts\AssetBrowser\SketchfabBrowserManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\Vignette\VignetteEffect.cs" />
