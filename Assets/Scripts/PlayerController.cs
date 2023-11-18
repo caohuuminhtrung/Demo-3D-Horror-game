@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
   public float castRadius;
   public float castDistance;
   public LayerMask castLayerMask;
-  public bool doorHeld, isHidding, isNearDoor;
+  public bool doorHeld, isHidding, isNearDoor, isLookAtWindow;
   private float increaseSpeed = 5f;
   private float decreaseSpeed = 5f;
   private float customHorizontalInput = 0f;
@@ -180,6 +181,9 @@ public class PlayerController : MonoBehaviour
           doorHeld = true;
         }
       }
+
+      if (hitInfo.transform.gameObject.CompareTag("Window")) { isLookAtWindow = true; }
+      else { isLookAtWindow = false; }
 
     }
     else

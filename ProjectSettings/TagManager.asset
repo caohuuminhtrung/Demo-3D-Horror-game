@@ -23,6 +23,8 @@ TagManager:
   - Closet
   - JumpscareCamera
   - JumpscareSound
+  - EnemyJumpscareModel
+  - Window
   layers:
   - Default
   - TransparentFX

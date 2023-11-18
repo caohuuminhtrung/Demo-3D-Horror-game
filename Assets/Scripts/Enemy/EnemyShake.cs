@@ -13,7 +13,7 @@ public class EnemyShaking : MonoBehaviour
     IEnumerator Tremble()
     {
         isTrembled = true;
-        while (isTrembled == true)
+        while (isTrembled)
         {
 
             yield return new WaitForSeconds(Random.Range(2f, 4f));

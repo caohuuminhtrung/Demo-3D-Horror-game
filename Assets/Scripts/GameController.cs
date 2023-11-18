@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour
         {
           closet.switchState(closet.closetCloseState);
         }
-        else if (closet.currentState.GetType().Equals(typeof(ClosetHalfOpenState)) && enemyController.isEnemyInCloset())
+        else if (closet.currentState.GetType().Equals(typeof(ClosetHalfOpenState)) && enemyController.IsEnemyInCloset())
         {
           closet.switchState(closet.closetHalfCloseState);
         }

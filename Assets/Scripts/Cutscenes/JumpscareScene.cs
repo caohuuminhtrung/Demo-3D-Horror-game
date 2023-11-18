@@ -19,7 +19,7 @@ public class JumpscareScene : MonoBehaviour
     enemy.transform.LookAt(Camera.main.transform);
     enemy.transform.eulerAngles += new Vector3(45f, 0, 0);
     player.transform.Find("JumpscareSound").GetComponent<AudioSource>().Play();
-    enemy.GetComponent<EnemyController>().playAttackAnimID();
+    enemy.GetComponent<EnemyController>().PlayAttackAnimID();
     yield return new WaitForSeconds(6f);
     // player.transform.parent = null;
   }

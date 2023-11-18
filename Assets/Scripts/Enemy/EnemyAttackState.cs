@@ -10,9 +10,9 @@ public class EnemyAttackState : EnemyBaseState
   {
     Debug.Log("attack!");
     enemy.SetBasePosition();
-    enemy.StopAllCoroutines();
+    // enemy.StopAllCoroutines();
 
-    enemy.StartCoroutine(enemy.playAttackAnimID());
+    enemy.StartCoroutine(enemy.PlayAttackAnimID());
   }
 
 

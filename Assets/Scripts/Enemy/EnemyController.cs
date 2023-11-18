@@ -23,17 +23,19 @@ public class EnemyController : MonoBehaviour
   public EnemyAttackState enemyAttackState;
   public EnemyPrepareState enemyPrepareState;
 
-  Animator enemyAnim;
+  public Animator enemyAnim, doorAnim, closetAnim1, closetAnim2;
   int idleAnim, waveAnim, crawlAnim, booAnim;
 
   public int RNGcount, RNGlimit;
   float jumpScareCounter, attackCancelCounter;
 
-  public bool isRNGcount, attackCancel, jumpscareFlag;
+  public bool isRNGcount, attackCancel, jumpscareClosetFlag, jumpscareWindowFlag, waveDoorFlag;
 
-  public AudioSource windowKnocking1, windowKnocking2, footstep1, footstep2, laughing;
+  public bool jumpscareAtCloset, jumpscareAtDoor, jumpscareAtWindow;
 
-  public GameObject jumpscareEnemy, playerCam, jumpscareCam, jumpscareSound;
+  public AudioSource windowKnocking1, windowKnocking2, footstep1, footstep2, laughing, windowJump, closetJump;
+
+  public GameObject jumpscareEnemy, playerCam, jumpscareCam, jumpscareSound, enemySpotlight;
 
   void Awake()
   {
@@ -70,14 +72,14 @@ public class EnemyController : MonoBehaviour
     isRNGcount = true;
     attackCancel = false;
 
+    jumpscareAtCloset = false;
+    jumpscareAtDoor = false;
+    jumpscareAtWindow = false;
+
     currentState = enemyInitialState;
     currentState.enterState(this);
 
     StartEnemyBehaviour();
-
-    // Debug.Log("jumpscare test");
-    // StartCoroutine(playAttackAnimID());
-
   }
 
   void Update()
@@ -93,7 +95,10 @@ public class EnemyController : MonoBehaviour
       isRNGcount = true;
     }
 
-    AttackCountdown();
+    if (currentState.GetType().Equals(typeof(EnemyPrepareState)))
+    {
+      AttackBehaviour();
+    }
   }
 
   public void StartEnemyBehaviour()
@@ -163,9 +168,9 @@ public class EnemyController : MonoBehaviour
       yield return new WaitForSeconds(1.0f);
       if (isRNGcount)
       {
-        if (!currentState.GetType().Equals(typeof(EnemyPrepareState)))
+        if (IsEnemyInCloset() && !currentState.GetType().Equals(typeof(EnemyPrepareState)))
         {
-          if (Random.Range(0, 2) == 0)
+          if (Random.Range(0, 10) == 0)
           {
             laughing.Play();
           }
@@ -179,16 +184,23 @@ public class EnemyController : MonoBehaviour
         }
         if (RNGcount == RNGlimit && !currentState.GetType().Equals(typeof(EnemyPrepareState)))
         {
+
           if (Random.Range(0, 2) == 0)
-          {
-            Debug.Log("Jump failed!");
-            RNGcount = 0;
-          }
-          else
           {
             Debug.Log("Jumping!");
             SwitchState(enemyPrepareState);
           }
+          else
+          {
+            Debug.Log("Jump failed!");
+          }
+
+          if (Random.Range(0, 2) == 0)
+          {
+            Debug.Log("play laugh");
+            laughing.Play();
+          }
+
           RNGcount = 0;
         }
       }
@@ -196,68 +208,92 @@ public class EnemyController : MonoBehaviour
     }
   }
 
-  public void AttackCountdown()
+  //Countdown to attack (10 -> 12sec)
+  public void AttackBehaviour()
   {
-    if (currentState.GetType().Equals(typeof(EnemyPrepareState)))
+    jumpScareCounter += Time.deltaTime;
+    CheckPlayerAction();
+    if (jumpScareCounter > Random.Range(10f, 12f))
     {
-      jumpScareCounter += Time.deltaTime;
-      checkPlayerAction();
-      if (jumpScareCounter > Random.Range(10f, 12f))
+      if (IsEnemyAtDoor())
       {
-        if (isEnemyAtDoor())
+        Debug.Log("Run doorRNG");
+        DoorBehaviour();
+        return;
+      }
+
+      if (IsEnemyAtWindow())
+      {
+        if (player.isHidding)
         {
-          Debug.Log("Run doorRNG");
-          doorRNG();
+          SetClosetJumpscareAnim();
         }
-        SwitchState(enemyAttackState);
-        jumpScareCounter = 0;
-        return;
+        jumpscareAtWindow = true;
+      }
+      if (IsEnemyInCloset())
+      {
+        SetClosetJumpscareAnim();
+        jumpscareAtCloset = true;
       }
 
-      if (isEnemyInCloset())
-      {
-        // Debug.Log("Run ClosetRNG");
-        closetRNG();
-      }
-
-      if (checkPlayerAction())
-      {
-        jumpScareCounter = 0;
-        SwitchState(enemyInitialState);
-        return;
-      }
-      // Debug.Log("jumscare in: " + jumpScareCounter);
+      SwitchState(enemyAttackState);
+      jumpScareCounter = 0;
+      return;
     }
+
+    if (IsEnemyAtDoor() && waveDoorFlag && !player.doorHeld && door.currentState.GetType().Equals(typeof(DoorHalfCloseState)))
+    {
+      door.switchState(door.doorHalfOpenState);
+    }
+
+    if (!jumpscareWindowFlag && player.isLookAtWindow && IsEnemyAtWindow())
+    {
+      windowJump.Play();
+    }
+
+    if (IsEnemyInCloset())
+    {
+      // Debug.Log("Run ClosetBehaviour");
+      ClosetBehaviour();
+    }
+
+    if (CheckPlayerAction())
+    {
+      jumpScareCounter = 0;
+      SwitchState(enemyInitialState);
+      return;
+    }
+
   }
 
-  public bool checkPlayerAction()
+  public bool CheckPlayerAction()
   {
-    if (player.doorHeld && door.currentState.GetType().Equals(typeof(DoorHalfCloseState)))
+    if (IsEnemyAtDoor() && player.doorHeld && door.currentState.GetType().Equals(typeof(DoorHalfCloseState)))
     {
       attackCancelCounter += Time.deltaTime;
       Debug.Log("holding door for: " + attackCancelCounter);
-      if (attackCancelCounter > Random.Range(1.5f, 2.9f))
+      if (attackCancelCounter > Random.Range(1.9f, 2.9f))
       {
         Debug.Log("Hold door long enough!");
         return true;
       }
     }
-    else if (player.isHidding && (closet.currentState.GetType().Equals(typeof(ClosetCloseState)) || closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState))))
+    else if (IsEnemyAtWindow() && player.isHidding && (closet.currentState.GetType().Equals(typeof(ClosetCloseState)) || closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState))))
     {
       attackCancelCounter += Time.deltaTime;
       Debug.Log("holding closet for: " + attackCancelCounter);
-      if (attackCancelCounter > Random.Range(1.8f, 3.2f))
+      if (attackCancelCounter > Random.Range(2.1f, 3.2f))
       {
         Debug.Log("Hide long enough!");
         return true;
       }
     }
-    else if (player.doorHeld && closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState)))
+    else if (IsEnemyInCloset() && player.doorHeld && closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState)))
     {
       Debug.Log("Player holding closet doors");
       attackCancelCounter += Time.deltaTime;
       Debug.Log("holding closet for: " + attackCancelCounter);
-      if (attackCancelCounter > Random.Range(1.2f, 2.5f))
+      if (attackCancelCounter > Random.Range(1.98f, 2.5f))
       {
         Debug.Log("Hold closet long enough!");
         return true;
@@ -271,93 +307,98 @@ public class EnemyController : MonoBehaviour
     return false;
   }
 
-  void doorRNG()
+  void DoorBehaviour()
   {
     if (!player.doorHeld && door.currentState.GetType().Equals(typeof(DoorHalfOpenState)))
 
-      if (Random.Range(0, 2) == 0)
+      if (Random.Range(0, 3) < 0)
       {
         Debug.Log("Jump from door to closet");
         SwitchState(enemyPrepareState);
+        jumpScareCounter = 0;
+        return;
       }
       else if (player.isNearDoor)
       {
         Debug.Log("Player check door too late");
+        SetDoorJumpscareAnim();
         SwitchState(enemyAttackState);
         jumpScareCounter = 0;
+        jumpscareAtDoor = true;
         return;
       }
       else
       {
+        SetBasePosition();
         jumpScareCounter += Time.deltaTime;
-        if (jumpScareCounter >= Random.Range(11.5f, 20f))
+        if (jumpScareCounter >= Random.Range(1.2f, 19.8f))
         {
           Debug.Log("Player didn't check door. RIP");
+          SetDoorJumpscareAnim();
           SwitchState(enemyAttackState);
           jumpScareCounter = 0;
+          jumpscareAtDoor = true;
           return;
         }
       }
   }
 
-  void closetRNG()
+  void ClosetBehaviour()
   {
-    jumpscareFlag = false;
-    // Debug.Log("jumpscare?");
-    if (!jumpscareFlag && closet.currentState.GetType().Equals(typeof(ClosetHalfOpenState)))
+    if (!jumpscareClosetFlag && closet.currentState.GetType().Equals(typeof(ClosetHalfOpenState)))
     {
-      // Debug.Log("jumpscare!!!");
-      jumpscareFlag = true;
-      playBooAnimID();
+      jumpscareClosetFlag = true;
+      closetJump.Play();
+      PlayBooAnimID();
     }
-    // Debug.Log("Attack???");
     if (closet.currentState.GetType().Equals(typeof(ClosetOpenState)))
     {
-      // Debug.Log("Attack?");
       SwitchState(enemyAttackState);
+      jumpscareAtCloset = true;
       return;
     }
   }
 
-  public void playIdleAnimID()
+  public void PlayIdleAnimID()
   {
     Debug.Log("Play idle animation");
     transform.localScale = new Vector3(4, transform.localScale.y, transform.localScale.z);
     enemyAnim.Play(idleAnim);
   }
 
-  public IEnumerator playWaveAnimID()
+  public IEnumerator PlayWaveAnimID()
   {
-    yield return new WaitForSeconds(Random.Range(5.1f, 7.9f));
-    if (isEnemyAtDoor())
+    yield return new WaitForSeconds(Random.Range(4.3f, 7.9f));
+    if (IsEnemyAtDoor())
     {
-      if (Random.Range(0, 3) > 0)
+      if (Random.Range(0, 5) > 0)
       {
         Debug.Log("Play wave animation");
         door.switchState(door.doorHalfOpenState);
         enemyAnim.Play(waveAnim);
+        waveDoorFlag = true;
       }
       else Debug.Log("Enemy doesn't play wave animation");
     }
   }
 
-  public IEnumerator playCrawlAnimID()
+  public IEnumerator PlayCrawlAnimID()
   {
-    yield return new WaitForSeconds(Random.Range(1.7f, 2.9f));
+    yield return new WaitForSeconds(Random.Range(1.9f, 3.2f));
     Debug.Log("Play crawl animation");
     transform.SetPositionAndRotation(windowPos.transform.position, windowPos.transform.rotation);
     transform.localScale = new Vector3(-4, transform.localScale.y, transform.localScale.z);
     enemyAnim.Play(crawlAnim);
   }
 
-  public void playBooAnimID()
+  public void PlayBooAnimID()
   {
     Debug.Log("Play BOO! animation");
     transform.localScale = new Vector3(4, transform.localScale.y, transform.localScale.z);
     enemyAnim.Play(booAnim);
   }
 
-  public IEnumerator playAttackAnimID()
+  public IEnumerator PlayAttackAnimID()
   {
     // StartCoroutine(jumpscare.Play(jumpscareEnemy, playerCam, jumpscareCam, jumpscareSound.GetComponent<AudioSource>()));
     jumpscareCam.SetActive(true);
@@ -367,6 +408,9 @@ public class EnemyController : MonoBehaviour
     jumpscareSound.GetComponent<AudioSource>().Play();
 
     yield return new WaitForSeconds(3f);
+    closetAnim1.SetFloat("Speed", 1);
+    closetAnim2.SetFloat("Speed", 1);
+    doorAnim.SetFloat("Speed", 1);
     Debug.Log("return to normal");
     jumpscareCam.SetActive(false);
     playerCam.SetActive(true);
@@ -376,7 +420,7 @@ public class EnemyController : MonoBehaviour
 
   }
 
-  public bool isEnemyAtDoor()
+  public bool IsEnemyAtDoor()
   {
     if (transform.position == doorPos.transform.position)
     {
@@ -385,7 +429,7 @@ public class EnemyController : MonoBehaviour
     return false;
   }
 
-  public bool isEnemyAtWindow()
+  public bool IsEnemyAtWindow()
   {
     if (transform.position == windowPos.transform.position)
     {
@@ -394,7 +438,7 @@ public class EnemyController : MonoBehaviour
     return false;
   }
 
-  public bool isEnemyAtHallway()
+  public bool IsEnemyAtHallway()
   {
     if (transform.position == hallwayPos.transform.position)
     {
@@ -403,7 +447,7 @@ public class EnemyController : MonoBehaviour
     return false;
   }
 
-  public bool isEnemyAtPrewindow()
+  public bool IsEnemyAtPrewindow()
   {
     if (transform.position == preWindowPos.transform.position)
     {
@@ -412,7 +456,7 @@ public class EnemyController : MonoBehaviour
     return false;
   }
 
-  public bool isEnemyInCloset()
+  public bool IsEnemyInCloset()
   {
     if (transform.position == closetPos.transform.position)
     {
@@ -421,13 +465,29 @@ public class EnemyController : MonoBehaviour
     return false;
   }
 
-  public bool isEnemyAtBase()
+  public bool IsEnemyAtBase()
   {
     if (transform.position == basePos.transform.position)
     {
       return true;
     }
     return false;
+  }
+
+  void SetClosetJumpscareAnim()
+  {
+    Debug.Log("open closet?");
+
+    closetAnim1.SetFloat("Speed", 5);
+    closetAnim2.SetFloat("Speed", 5);
+    closet.switchState(closet.closetOpenState);
+  }
+
+  void SetDoorJumpscareAnim()
+  {
+    Debug.Log("open door?");
+    doorAnim.SetFloat("Speed", 3.5f);
+    door.switchState(door.doorOpenState);
   }
 
 }
