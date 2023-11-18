@@ -278,11 +278,11 @@ public class EnemyController : MonoBehaviour
         return true;
       }
     }
-    else if (IsEnemyAtWindow() && player.isHidding && (closet.currentState.GetType().Equals(typeof(ClosetCloseState)) || closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState))))
+    else if (IsEnemyAtWindow() && player.isHidding && (closet.currentState.GetType().Equals(typeof(ClosetCloseState)) || closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState)) || closet.currentState.GetType().Equals(typeof(ClosetHalfOpenState))))
     {
       attackCancelCounter += Time.deltaTime;
       Debug.Log("holding closet for: " + attackCancelCounter);
-      if (attackCancelCounter > Random.Range(2.1f, 3.2f))
+      if (attackCancelCounter > Random.Range(2.7f, 4.4f))
       {
         Debug.Log("Hide long enough!");
         return true;
@@ -384,7 +384,7 @@ public class EnemyController : MonoBehaviour
 
   public IEnumerator PlayCrawlAnimID()
   {
-    yield return new WaitForSeconds(Random.Range(1.9f, 3.2f));
+    yield return new WaitForSeconds(Random.Range(1.4f, 2.9f));
     Debug.Log("Play crawl animation");
     transform.SetPositionAndRotation(windowPos.transform.position, windowPos.transform.rotation);
     transform.localScale = new Vector3(-4, transform.localScale.y, transform.localScale.z);
