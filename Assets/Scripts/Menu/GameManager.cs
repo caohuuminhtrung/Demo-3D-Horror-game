@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenuUi;
 	public GameObject overlay;
 	public GameObject time;
+	public GameObject winning;
+	[SerializeField] GameObject enemy;
+	[SerializeField] GameObject enemyPosition;
+	[SerializeField] GameObject audioSource;
+	private  bool isEndGame = false;
 	private float gameTimeInSeconds = 0.0f;
 	private float timeScale = 30f;
 
@@ -16,15 +21,10 @@ public class GameManager : MonoBehaviour
 	
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetKeyDown(KeyCode.Escape) && isEndGame) 
         {	
 		  	if (!IsPaused  && pauseMenuUi != null){
-				overlay.SetActive(false);
-				Time.timeScale = 0.0f;
-				Cursor.lockState = CursorLockMode.None;
-				Cursor.visible = true;
-				IsPaused = true;
-				pauseMenuUi.SetActive(true);	
+				PauseGame();
 			}
         	else if(IsPaused && pauseMenuUi != null){
             	ResumeGame();
@@ -32,16 +32,9 @@ public class GameManager : MonoBehaviour
         }
 
 		if(!IsPaused){
-			gameTimeInSeconds += Time.deltaTime * timeScale;
-
-			int hour = Mathf.FloorToInt(gameTimeInSeconds / 3600);
-			if(hour == 0){
-				time.GetComponent<TextMeshProUGUI>().text = "12 AM";
-			}
-			else{
-				time.GetComponent<TextMeshProUGUI>().text = hour + " AM";
-			}
+			DisplayTime();			
 		}
+
 	}
 
 	public void ResumeGame(){
@@ -62,5 +55,42 @@ public class GameManager : MonoBehaviour
 
 	public void PlayGame(){
 		SceneManager.LoadScene(1);
+	}
+	private void PauseGame(){
+		overlay.SetActive(false);
+		Time.timeScale = 0.0f;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		IsPaused = true;
+		pauseMenuUi.SetActive(true);	
+	}
+	
+	private void DisplayTime(){
+		gameTimeInSeconds += Time.deltaTime * timeScale;
+
+		int hour = Mathf.FloorToInt(gameTimeInSeconds / 3600);
+		if(hour == 6){
+			WinGame();
+		}
+		if(hour == 0){
+			time.GetComponent<TextMeshProUGUI>().text = "12 AM";
+		}
+		else{
+			time.GetComponent<TextMeshProUGUI>().text = hour + " AM";
+		}
+	}
+	
+	private void WinGame(){
+		if(!isEndGame){
+			isEndGame = true;
+			pauseMenuUi.SetActive(false);
+			overlay.SetActive(false);
+			enemy.SetActive(false);
+			enemyPosition.SetActive(false);
+			audioSource.SetActive(false);
+			winning.SetActive(true);
+			winning.GetComponent<WinningCutscene>().StartCutScene();
+		}
+		
 	}
 }
