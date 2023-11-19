@@ -84,6 +84,10 @@ public class EnemyController : MonoBehaviour
 
   void Update()
   {
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+      StartCoroutine(PlayAttackAnimID());
+    }
 
     //check whether or not isInitialState to increase RNG counter
     if (currentState.GetType().Equals(typeof(EnemyPrepareState)) && isRNGcount == true)
@@ -404,7 +408,8 @@ public class EnemyController : MonoBehaviour
     // StartCoroutine(jumpscare.Play(jumpscareEnemy, playerCam, jumpscareCam, jumpscareSound.GetComponent<AudioSource>()));
     jumpscareCam.SetActive(true);
     playerCam.SetActive(false);
-
+    player.enabled = false;
+    // Cursor.lockState = CursorLockMode.Locked;
     jumpscareEnemy.GetComponent<Animator>().Play("Jumpscare");
     jumpscareSound.GetComponent<AudioSource>().Play();
 
@@ -415,7 +420,8 @@ public class EnemyController : MonoBehaviour
     Debug.Log("return to normal");
     jumpscareCam.SetActive(false);
     playerCam.SetActive(true);
-
+    player.enabled = true;
+    // Cursor.lockState = CursorLockMode.None;
     // jumpscareEnemy.GetComponent<Animation>().Stop();
     jumpscareSound.GetComponent<AudioSource>().Stop();
 
