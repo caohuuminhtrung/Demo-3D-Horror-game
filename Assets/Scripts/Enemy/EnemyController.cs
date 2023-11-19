@@ -248,6 +248,7 @@ public class EnemyController : MonoBehaviour
 
     if (!jumpscareWindowFlag && player.isLookAtWindow && IsEnemyAtWindow())
     {
+      jumpscareWindowFlag = true;
       windowJump.Play();
     }
 
