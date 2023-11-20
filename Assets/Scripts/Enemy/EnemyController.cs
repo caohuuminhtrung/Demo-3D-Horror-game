@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
   public AudioSource windowKnocking1, windowKnocking2, footstep1, footstep2, laughing, windowJump, closetJump;
 
   public GameObject jumpscareEnemy, playerCam, jumpscareCam, jumpscareSound, enemySpotlight;
+  public bool isLosingGame;
 
   void Awake()
   {
@@ -75,6 +76,8 @@ public class EnemyController : MonoBehaviour
     jumpscareAtCloset = false;
     jumpscareAtDoor = false;
     jumpscareAtWindow = false;
+
+    isLosingGame = false;
 
     currentState = enemyInitialState;
     currentState.enterState(this);
@@ -415,7 +418,8 @@ public class EnemyController : MonoBehaviour
     Debug.Log("return to normal");
     jumpscareCam.SetActive(false);
     playerCam.SetActive(true);
-    player.enabled = true;
+    player.enabled = true; 
+    isLosingGame = true;
     // Cursor.lockState = CursorLockMode.None;
     // jumpscareEnemy.GetComponent<Animation>().Stop();
     jumpscareSound.GetComponent<AudioSource>().Stop();

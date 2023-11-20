@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject enemy;
 	[SerializeField] GameObject enemyPosition;
 	[SerializeField] GameObject audioSource;
+	[SerializeField] LosingCutscene losing;
+	[SerializeField] EnemyController enemyController;
+	[SerializeField] GameObject player;
 	private bool isEndGame = false;
 	private float gameTimeInSeconds = 0.0f;
 	private float timeScale = 30f;
@@ -23,21 +26,31 @@ public class GameManager : MonoBehaviour
 	{
 		if(pauseMenuUi != null){
 			if (Input.GetKeyDown(KeyCode.Escape) && !isEndGame)
-		{
+			{
+				if (!IsPaused)
+				{
+					PauseGame();
+				}
+				else if (IsPaused)
+				{
+					ResumeGame();
+				}
+			}
+
 			if (!IsPaused)
 			{
-				PauseGame();
+				DisplayTime();
 			}
-			else if (IsPaused)
-			{
-				ResumeGame();
-			}
-		}
 
-		if (!IsPaused)
-		{
-			DisplayTime();
-		}
+			if (enemyController.isLosingGame){
+				LoseGame();
+			}
+
+			if(isEndGame){
+				if(Input.GetKeyDown(KeyCode.Return)){
+					MainMenu();
+				}
+			}
 		}
 	}
 
@@ -107,5 +120,43 @@ public class GameManager : MonoBehaviour
 			winning.GetComponent<WinningCutscene>().StartCutScene();
 		}
 
+	}
+
+	private void LoseGame(){
+		if(!isEndGame){
+			isEndGame = true;
+			ArrayList hints = new ArrayList();
+			hints.Add("Remember to check the door.");
+			hints.Add("Hold your door tight or it will get in.");
+			hints.Add("It's outside the widow, look out.");
+			hints.Add("Don't let it see you through the window. Hide!");
+			hints.Add("Your closet is not always safe.");
+			hints.Add("Hold you closet doors tight.");
+			hints.Add("Watch out for its laugh.");
+
+			
+			pauseMenuUi.SetActive(false);
+			overlay.SetActive(false);
+			enemy.SetActive(false);
+			enemyPosition.SetActive(false);
+			audioSource.SetActive(false);
+			player.SetActive(false);
+			losing.GameObject().SetActive(true);
+			
+			if(enemyController.jumpscareAtDoor){
+				losing.SetHintText(hints[Random.Range(0, 2)].ToString());
+			}
+			else if(enemyController.jumpscareAtWindow){
+				losing.SetHintText(hints[Random.Range(2, 4)].ToString());
+			}
+			else{
+				losing.SetHintText(hints[Random.Range(4, 7)].ToString());
+			}
+
+			losing.PlayEndingSong();
+			losing.PlayFlickerLight();
+		}
+		
+		
 	}
 }
