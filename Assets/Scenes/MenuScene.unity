@@ -22072,9 +22072,45 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1902148476271729652, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902148476271729652, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902148476271729652, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5160713126344964729}
+    - target: {fileID: 1902148476271729652, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902148476271729652, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902148476271729652, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902148476271729652, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2970055962755254979, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
       propertyPath: m_Name
       value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355966012450444675, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_text
+      value: Night Terrors
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545967754336955729, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_Text
+      value: OPTIONS
       objectReference: {fileID: 0}
     - target: {fileID: 5542360374080944122, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22136,11 +22172,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8961980568963429324, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 2186.705
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961980568963429324, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 963.38116
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+--- !u!114 &5160713126344964729 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9064261925118072871, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+  m_PrefabInstance: {fileID: 5160713126344964728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487987e3c2492414c9d9d8b75e673091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

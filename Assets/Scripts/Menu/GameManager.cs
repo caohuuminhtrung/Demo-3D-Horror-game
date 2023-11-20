@@ -21,13 +21,14 @@ public class GameManager : MonoBehaviour
 
 	public void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Escape) && isEndGame)
+		if(pauseMenuUi != null){
+			if (Input.GetKeyDown(KeyCode.Escape) && !isEndGame)
 		{
-			if (!IsPaused && pauseMenuUi != null)
+			if (!IsPaused)
 			{
 				PauseGame();
 			}
-			else if (IsPaused && pauseMenuUi != null)
+			else if (IsPaused)
 			{
 				ResumeGame();
 			}
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 		{
 			DisplayTime();
 		}
-
+		}
 	}
 
 	public void ResumeGame()
