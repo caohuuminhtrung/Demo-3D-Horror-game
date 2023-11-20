@@ -84,11 +84,6 @@ public class EnemyController : MonoBehaviour
 
   void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-      StartCoroutine(PlayAttackAnimID());
-    }
-
     //check whether or not isInitialState to increase RNG counter
     if (currentState.GetType().Equals(typeof(EnemyPrepareState)) && isRNGcount == true)
     {
