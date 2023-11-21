@@ -19,7 +19,6 @@ public class EnemyShaking : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(2f, 4f));
             if (Random.Range(0, 8) == 0)
             {
-                // Debug.Log("Start shaking");
                 for (int i = 0; i < 20; i++)
                 {
                     transform.localPosition += new Vector3(Random.Range(transform.localPosition.x - 0.08f, transform.localPosition.x + 0.05f), 0, 0);
