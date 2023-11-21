@@ -22144,6 +22144,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2142050126690961882, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2371654891279108791, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -22219,6 +22223,10 @@ PrefabInstance:
     - target: {fileID: 2970055962755254979, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
       propertyPath: m_Name
       value: Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3250383353165424437, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3263115979745539685, guid: 441444fe8905d4b47a8a7bcd986dec40, type: 3}
       propertyPath: m_AnchorMax.y
