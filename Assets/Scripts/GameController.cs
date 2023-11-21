@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour
   public ClosetManager closet;
   public EnemyController enemyController;
   public GameObject jumpscare;
-
+  public GameObject windowLight;
   public GameObject enemy;
   public GameObject animationHolder, canvas, skyLight;
   DialogueController dialogueController;
@@ -60,8 +60,7 @@ public class GameController : MonoBehaviour
     {
       StartCoroutine(firstCutscene.Play(dialogueController, player.gameObject));
 
-      // stage = 2;
-      stage = 5;
+      stage = 2;
       playStage = false;
     }
     if (stage == 2 && playStage)
@@ -84,11 +83,12 @@ public class GameController : MonoBehaviour
     }
     if (stage == 4 && playStage)
     {
-      HidePrompt();
-      // StartCoroutine(secondCutscene.Play(dialogueController, player.gameObject));
+      HidePrompt();      
+      StartCoroutine(secondCutscene.Play(dialogueController, player.gameObject));
+      door.switchState(door.doorHalfCloseState);
       stage = 5;
       skyLight.SetActive(true);
-      enemy.SetActive(true);
+      enemy.GetComponent<EnemyController>().enabled = true;
       playStage = false;
     }
   }
