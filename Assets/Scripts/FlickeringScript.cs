@@ -6,10 +6,11 @@ public class FlickeringScript : MonoBehaviour
 {
     [SerializeField] private EnemyController enemy;
 
-    bool isFlicker;
+    bool isFlicker = false;
 
     void Start()
     {
+        isFlicker = false;
         StartCoroutine(flickerLight());
     }
     void Update()
@@ -29,7 +30,7 @@ public class FlickeringScript : MonoBehaviour
         // yield return new WaitForSeconds(0.1f);
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(1f, 3.2f));
+            yield return new WaitForSeconds(Random.Range(0.8f, 2.6f));
             if (!isFlicker)
             {
                 transform.GetComponent<Light>().enabled = false;
@@ -37,11 +38,11 @@ public class FlickeringScript : MonoBehaviour
             if (isFlicker)
             {
                 transform.GetComponent<Light>().enabled = false;
-                yield return new WaitForSeconds(Random.Range(0.15f, 0.89f));
+                yield return new WaitForSeconds(Random.Range(0.15f, 0.69f));
                 transform.GetComponent<Light>().enabled = true;
-                yield return new WaitForSeconds(Random.Range(0.4f, 2.7f));
+                yield return new WaitForSeconds(Random.Range(0.4f, 2.2f));
                 transform.GetComponent<Light>().enabled = false;
-                yield return new WaitForSeconds(Random.Range(0.21f, 1.1f));
+                yield return new WaitForSeconds(Random.Range(0.21f, 1.01f));
                 transform.GetComponent<Light>().enabled = true;
             }
 

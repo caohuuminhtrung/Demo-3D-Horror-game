@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
 	[SerializeField] LosingCutscene losing;
 	[SerializeField] EnemyController enemyController;
 	[SerializeField] GameObject player;
+	[SerializeField] GameController gameController;
 	private bool isEndGame = false;
 	private float gameTimeInSeconds = 0.0f;
 	private float timeScale = 30f;
@@ -24,7 +26,8 @@ public class GameManager : MonoBehaviour
 
 	public void Update()
 	{
-		if(pauseMenuUi != null){
+		if (pauseMenuUi != null)
+		{
 			if (Input.GetKeyDown(KeyCode.Escape) && !isEndGame)
 			{
 				if (!IsPaused)
@@ -42,12 +45,15 @@ public class GameManager : MonoBehaviour
 				DisplayTime();
 			}
 
-			if (enemyController.isLosingGame){
+			if (enemyController.isLosingGame)
+			{
 				LoseGame();
 			}
 
-			if(isEndGame){
-				if(Input.GetKeyDown(KeyCode.Return)){
+			if (isEndGame)
+			{
+				if (Input.GetKeyDown(KeyCode.Return))
+				{
 					MainMenu();
 				}
 			}
@@ -89,20 +95,27 @@ public class GameManager : MonoBehaviour
 
 	private void DisplayTime()
 	{
-		gameTimeInSeconds += Time.deltaTime * timeScale;
-
-		int hour = Mathf.FloorToInt(gameTimeInSeconds / 3600);
-		if (hour == 6)
+		if (gameController.stage < 5)
 		{
-			WinGame();
-		}
-		if (hour == 0)
-		{
-			time.GetComponent<TextMeshProUGUI>().text = "12 AM";
+			time.GetComponent<TextMeshProUGUI>().text = "11 AM";
 		}
 		else
 		{
-			time.GetComponent<TextMeshProUGUI>().text = hour + " AM";
+			gameTimeInSeconds += Time.deltaTime * timeScale;
+
+			int hour = Mathf.FloorToInt(gameTimeInSeconds / 3600);
+			if (hour == 6)
+			{
+				WinGame();
+			}
+			if (hour == 0)
+			{
+				time.GetComponent<TextMeshProUGUI>().text = "12 AM";
+			}
+			else
+			{
+				time.GetComponent<TextMeshProUGUI>().text = hour + " AM";
+			}
 		}
 	}
 
@@ -122,19 +135,23 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	private void LoseGame(){
-		if(!isEndGame){
+	private void LoseGame()
+	{
+		if (!isEndGame)
+		{
 			isEndGame = true;
-			ArrayList hints = new ArrayList();
-			hints.Add("Remember to check the door.");
-			hints.Add("Hold your door tight or it will get in.");
-			hints.Add("It's outside the widow, look out.");
-			hints.Add("Don't let it see you through the window. Hide!");
-			hints.Add("Your closet is not always safe.");
-			hints.Add("Hold you closet doors tight.");
-			hints.Add("Watch out for its laugh.");
+			ArrayList hints = new ArrayList
+			{
+				"Remember to check the door.",
+				"Hold your door tight or it will get in.",
+				"It's outside the widow, look out.",
+				"Don't let it see you through the window. Hide!",
+				"Your closet is not always safe.",
+				"Hold you closet doors tight.",
+				"Watch out for its laugh."
+			};
 
-			
+
 			pauseMenuUi.SetActive(false);
 			overlay.SetActive(false);
 			enemy.SetActive(false);
@@ -142,21 +159,24 @@ public class GameManager : MonoBehaviour
 			audioSource.SetActive(false);
 			player.SetActive(false);
 			losing.GameObject().SetActive(true);
-			
-			if(enemyController.jumpscareAtDoor){
+
+			if (enemyController.jumpscareAtDoor)
+			{
 				losing.SetHintText(hints[Random.Range(0, 2)].ToString());
 			}
-			else if(enemyController.jumpscareAtWindow){
+			else if (enemyController.jumpscareAtWindow)
+			{
 				losing.SetHintText(hints[Random.Range(2, 4)].ToString());
 			}
-			else{
+			else if (enemyController.jumpscareAtCloset)
+			{
 				losing.SetHintText(hints[Random.Range(4, 7)].ToString());
 			}
 
 			losing.PlayEndingSong();
 			losing.PlayFlickerLight();
 		}
-		
-		
+
+
 	}
 }

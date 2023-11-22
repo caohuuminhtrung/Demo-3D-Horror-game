@@ -12,17 +12,20 @@ public class FirstCutscene : MonoBehaviour
     yield return null;
   }
 
-  IEnumerator Dialogue(DialogueController dialogueController, GameObject player) {
+  IEnumerator Dialogue(DialogueController dialogueController, GameObject player)
+  {
     yield return dialogueController.ShowDialogue(dialogues.dialogues[0]);
     yield return null;
   }
 
-  IEnumerator WakeUp(GameObject player) {
+  IEnumerator WakeUp(GameObject player)
+  {
     player.GetComponent<Animator>().Play("WakeUp");
     yield return new WaitForSeconds(1f);
   }
 
-  IEnumerator EnablePlayer(GameObject player) {
+  IEnumerator EnablePlayer(GameObject player)
+  {
     player.GetComponent<PlayerController>().SetIdle();
     player.GetComponent<Animator>().enabled = false;
     yield return null;
@@ -33,6 +36,7 @@ public class FirstCutscene : MonoBehaviour
     yield return Dialogue(dialogueController, player);
     yield return DisablePlayer(player);
     yield return WakeUp(player);
+    yield return new WaitForSeconds(1f);
     yield return EnablePlayer(player);
   }
 }

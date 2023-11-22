@@ -25,6 +25,7 @@ TagManager:
   - JumpscareSound
   - EnemyJumpscareModel
   - Window
+  - RoomLight
   layers:
   - Default
   - TransparentFX

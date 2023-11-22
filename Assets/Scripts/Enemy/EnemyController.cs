@@ -82,7 +82,7 @@ public class EnemyController : MonoBehaviour
     currentState = enemyInitialState;
     currentState.enterState(this);
 
-    StartEnemyBehaviour();
+    // StartEnemyBehaviour();
   }
 
   void Update()
@@ -168,15 +168,17 @@ public class EnemyController : MonoBehaviour
     while (true)
     {
       yield return new WaitForSeconds(1.0f);
+
+      if (IsEnemyInCloset() && !currentState.GetType().Equals(typeof(EnemyPrepareState)))
+      {
+        if (Random.Range(0, 10) == 0)
+        {
+          laughing.Play();
+        }
+      }
+
       if (isRNGcount)
       {
-        if (IsEnemyInCloset() && !currentState.GetType().Equals(typeof(EnemyPrepareState)))
-        {
-          if (Random.Range(0, 10) == 0)
-          {
-            laughing.Play();
-          }
-        }
         // Debug.Log("RNG counting...");
 
         if (Random.Range(0, 2) == 0)
@@ -187,7 +189,7 @@ public class EnemyController : MonoBehaviour
         if (RNGcount == RNGlimit && !currentState.GetType().Equals(typeof(EnemyPrepareState)))
         {
 
-          if (Random.Range(0, 2) == 0)
+          if (Random.Range(0, 3) > 0)
           {
             Debug.Log("Jumping!");
             SwitchState(enemyPrepareState);
@@ -271,7 +273,7 @@ public class EnemyController : MonoBehaviour
 
   public bool CheckPlayerAction()
   {
-    if (IsEnemyAtDoor() && player.doorHeld && door.currentState.GetType().Equals(typeof(DoorHalfCloseState)))
+    if (IsEnemyAtDoor() && player.doorHeld && player.isNearDoor && door.currentState.GetType().Equals(typeof(DoorHalfCloseState)))
     {
       attackCancelCounter += Time.deltaTime;
       Debug.Log("holding door for: " + attackCancelCounter);
@@ -291,7 +293,7 @@ public class EnemyController : MonoBehaviour
         return true;
       }
     }
-    else if (IsEnemyInCloset() && player.doorHeld && closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState)))
+    else if (IsEnemyInCloset() && player.doorHeld && !player.isNearDoor && closet.currentState.GetType().Equals(typeof(ClosetHalfCloseState)))
     {
       Debug.Log("Player holding closet doors");
       attackCancelCounter += Time.deltaTime;
@@ -418,7 +420,7 @@ public class EnemyController : MonoBehaviour
     Debug.Log("return to normal");
     jumpscareCam.SetActive(false);
     playerCam.SetActive(true);
-    player.enabled = true; 
+    player.enabled = true;
     isLosingGame = true;
     // Cursor.lockState = CursorLockMode.None;
     // jumpscareEnemy.GetComponent<Animation>().Stop();

@@ -2356,7 +2356,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d2f2f3cb724e43e4cbc3f196187f89e1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5337,7 +5337,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: bc35dba63d4e0ae4699695173cd233d9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.31
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -18484,7 +18484,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646980929}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73c4481d011b39047bd8ffb1898ddb86, type: 3}
   m_Name: 
@@ -19691,6 +19691,7 @@ MonoBehaviour:
   canvas: {fileID: 1472395730}
   skyLight: {fileID: 705507993}
   target: {fileID: 4649279337063050825, guid: 31124f1261d32ce4699c782a0294a03c, type: 3}
+  stage: 1
 --- !u!1 &1784611494
 GameObject:
   m_ObjectHideFlags: 0
@@ -22706,7 +22707,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1945786368}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a42cb73fd428791418b025fff5d79ec7, type: 3}
   m_Name: 
@@ -24974,6 +24975,10 @@ PrefabInstance:
       propertyPath: enemyPosition
       value: 
       objectReference: {fileID: 601476006}
+    - target: {fileID: 3325979156472189798, guid: 50463219b727dc249981aa6eb832e36e, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1783933017}
     - target: {fileID: 3325979156472189798, guid: 50463219b727dc249981aa6eb832e36e, type: 3}
       propertyPath: enemyController
       value: 

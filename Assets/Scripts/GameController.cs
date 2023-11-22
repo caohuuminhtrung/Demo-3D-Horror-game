@@ -24,8 +24,9 @@ public class GameController : MonoBehaviour
   public GameObject target;
 
   ItemDictionary itemDictionary;
-  int stage = 1;
+  public int stage = 1;
   bool playStage = true;
+
   // JumpscareScene jumpscareScene;
   // Start is called before the first frame update
 
@@ -46,7 +47,7 @@ public class GameController : MonoBehaviour
     dialogueController.player = player.GetComponent<PlayerController>();
     skyLight.SetActive(false);
     jumpscare.SetActive(false);
-    // enemy.SetActive(false);
+
   }
 
   // Update is called once per frame
@@ -83,13 +84,19 @@ public class GameController : MonoBehaviour
     }
     if (stage == 4 && playStage)
     {
-      HidePrompt();      
+      HidePrompt();
       StartCoroutine(secondCutscene.Play(dialogueController, player.gameObject));
       door.switchState(door.doorHalfCloseState);
       stage = 5;
       skyLight.SetActive(true);
-      enemy.GetComponent<EnemyController>().enabled = true;
+
       playStage = false;
+    }
+
+    if (secondCutscene.lightExploded)
+    {
+      secondCutscene.lightExploded = false;
+      enemyController.StartEnemyBehaviour();
     }
   }
 
@@ -98,7 +105,7 @@ public class GameController : MonoBehaviour
   public void ShowPrompt(GameObject hitObject)
   {
     if ((hitObject.CompareTag("Player") && player.GetIsHolding()) ||
-        (hitObject.CompareTag("Target") && !player.GetIsHolding()))
+        (hitObject.CompareTag("Target") && !player.GetIsHolding()) || hitObject.CompareTag("Window") && !player.GetIsHolding())
     {
       canvas.transform.Find("Prompt").GetComponent<TMP_Text>().text = "";
       return;

@@ -1,10 +1,10 @@
 public class Dialogues
 {
   public string[][] dialogues = new string[][] {
-    new string[] { "Darling", "Trung", "Have you awoken yet?" , "I brought up the dinner for you", "...", "I'll leave at the door then", "Remember to take the pills" },
-    new string[] { "I don't feel like eating right now", "Ugh, those pills again", "It gives me bad sleep, I hate it", "To your usual home, buddy"},
-    new string[] { "Feeling a bit sleepy right now", "Guess gotta head to bed then"},
-    new string[] {},
-    new string[] {},
+    new string[] { "Darling?", "", "Are you awake?" , "", "I brought you some dinner.", "", "...", "I'll leave them at the door then.", "Remember to take the pills, ok.", "I gotta go now. See you tommorow." },
+    new string[] { "I'm sorry...", "I don't feel like eating right now.", "", "...those pills again.", "It gives me bad sleep, I hate it.", "", "She'll probably score me again tommorow for throwing them away, but..."},
+    new string[] { "Ugh, my head hurts...", "Guess I'll just go back to sleep."},
+    new string[] {"Ughhh, I woke up mid sleep again. Even without those pills..."},
+    new string[] {"Huh, what the hell is happening?", "I think I heard something..."},
   };
 }
