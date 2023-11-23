@@ -3,10 +3,17 @@ using TMPro;
 using UnityEngine;
 public class LosingCutscene : MonoBehaviour
 {
+    private readonly int FadeInHash = Animator.StringToHash("Losing Fade In");
+    private readonly int FadeOutHash = Animator.StringToHash("Losing Fade Out");
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private TextMeshProUGUI hintText;
     [SerializeField] AudioSource soundSource;
     [SerializeField] Light enemyLight;
+    private Animator animator;
 
+    private void Awake() {
+        animator = GetComponent<Animator>();
+    }
 
     public void SetHintText(string hint)
     {
@@ -17,12 +24,25 @@ public class LosingCutscene : MonoBehaviour
     {
         soundSource.Play();
     }
-
+    public void PlayEndingScene(){
+        StartCoroutine(EndingScene());
+    }
+    
     public void PlayFlickerLight()
     {
-        StartCoroutine(flickerLight());
+        StartCoroutine(FlickerLight());
     }
-    IEnumerator flickerLight()
+
+    IEnumerator EndingScene(){
+        animator.Play(FadeInHash);
+        yield return new WaitForSeconds(2f);
+        PlayFlickerLight();
+        yield return new WaitForSeconds(8f);
+        animator.Play(FadeOutHash);
+        yield return new WaitForSeconds(2f);
+        gameManager.MainMenu();
+    }
+    IEnumerator FlickerLight()
     {
         while (true)
         {

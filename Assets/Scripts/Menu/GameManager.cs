@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,18 +19,23 @@ public class GameManager : MonoBehaviour
 	[SerializeField] EnemyController enemyController;
 	[SerializeField] GameObject player;
 	[SerializeField] GameController gameController;
+	[SerializeField] VideoPlayer videoPlayer;
 	private bool isEndGame = false;
 	private float gameTimeInSeconds = 0.0f;
-	private float timeScale = 30f;
+	private float timeScale = 30;
 
 	public static bool IsPaused = false;
 
+	void Start(){
+		videoPlayer.loopPointReached += OnVideoEnd;
+	}
 	public void Update()
 	{
 		if (pauseMenuUi != null)
 		{
 			if (Input.GetKeyDown(KeyCode.Escape) && !isEndGame)
 			{
+				Debug.Log("ESC Pressed");
 				if (!IsPaused)
 				{
 					PauseGame();
@@ -97,7 +103,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (gameController.stage < 5)
 		{
-			time.GetComponent<TextMeshProUGUI>().text = "11 AM";
+			time.GetComponent<TextMeshProUGUI>().text = "7 PM";
 		}
 		else
 		{
@@ -110,7 +116,7 @@ public class GameManager : MonoBehaviour
 			}
 			if (hour == 0)
 			{
-				time.GetComponent<TextMeshProUGUI>().text = "12 AM";
+				time.GetComponent<TextMeshProUGUI>().text = "0 AM";
 			}
 			else
 			{
@@ -140,17 +146,6 @@ public class GameManager : MonoBehaviour
 		if (!isEndGame)
 		{
 			isEndGame = true;
-			ArrayList hints = new ArrayList
-			{
-				"Remember to check the door.",
-				"Hold your door tight or it will get in.",
-				"It's outside the widow, look out.",
-				"Don't let it see you through the window. Hide!",
-				"Your closet is not always safe.",
-				"Hold you closet doors tight.",
-				"Watch out for its laugh."
-			};
-
 
 			pauseMenuUi.SetActive(false);
 			overlay.SetActive(false);
@@ -158,25 +153,38 @@ public class GameManager : MonoBehaviour
 			enemyPosition.SetActive(false);
 			audioSource.SetActive(false);
 			player.SetActive(false);
-			losing.GameObject().SetActive(true);
+			videoPlayer.GameObject().SetActive(true);
+			videoPlayer.Play();
+		}
+	}
 
-			if (enemyController.jumpscareAtDoor)
-			{
-				losing.SetHintText(hints[Random.Range(0, 2)].ToString());
-			}
-			else if (enemyController.jumpscareAtWindow)
-			{
-				losing.SetHintText(hints[Random.Range(2, 4)].ToString());
-			}
-			else if (enemyController.jumpscareAtCloset)
-			{
-				losing.SetHintText(hints[Random.Range(4, 7)].ToString());
-			}
+	private void OnVideoEnd(VideoPlayer vp){
+		ArrayList hints = new ArrayList
+		{
+			"Remember to check the door.",
+			"Hold your door tight or it will get in.",
+			"It's outside the widow, look out.",
+			"Don't let it see you through the window. Hide!",
+			"Your closet is not always safe.",
+			"Hold you closet doors tight.",
+			"Watch out for its laugh."
+		};
 
-			losing.PlayEndingSong();
-			losing.PlayFlickerLight();
+		if (enemyController.jumpscareAtDoor)
+		{
+			losing.SetHintText(hints[Random.Range(0, 2)].ToString());
+		}
+		else if (enemyController.jumpscareAtWindow)
+		{
+			losing.SetHintText(hints[Random.Range(2, 4)].ToString());
+		}
+		else if (enemyController.jumpscareAtCloset)
+		{
+			losing.SetHintText(hints[Random.Range(4, 7)].ToString());
 		}
 
-
+		losing.GameObject().SetActive(true);
+		losing.PlayEndingSong();
+		losing.PlayEndingScene();
 	}
 }

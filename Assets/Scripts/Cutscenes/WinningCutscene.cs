@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class WinningCutscene : MonoBehaviour
 {
-    private readonly int FadeInHash = Animator.StringToHash("Fade In");
-    private readonly int FadeOutHash = Animator.StringToHash("Fade Out");
+    private readonly int FadeInHash = Animator.StringToHash("Winning Fade In");
+    private readonly int FadeOutHash = Animator.StringToHash("Winning Fade Out");
+    [SerializeField] private GameManager gameManager;
+
     [SerializeField] AudioSource soundSource;
     [SerializeField] private TextMeshProUGUI timerText;
     private Animator animator;
@@ -51,5 +53,7 @@ public class WinningCutscene : MonoBehaviour
         timerText.enabled = true;
         yield return new WaitForSeconds(blinkInterval);
         animator.Play(FadeOutHash);
+        yield return new WaitForSeconds(1f);
+        gameManager.MainMenu();
     }
 }
