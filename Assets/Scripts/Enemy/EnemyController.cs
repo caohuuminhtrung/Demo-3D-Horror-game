@@ -314,22 +314,22 @@ public class EnemyController : MonoBehaviour
 
   void DoorBehaviour()
   {
-    if (!player.doorHeld && door.currentState.GetType().Equals(typeof(DoorHalfOpenState)))
+    if (player.isNearDoor)
+    {
+      Debug.Log("Player check door too late");
+      SetDoorJumpscareAnim();
+      SwitchState(enemyAttackState);
+      jumpScareCounter = 0;
+      jumpscareAtDoor = true;
+      return;
+    }
+    if (!player.isNearDoor)
 
-      if (Random.Range(0, 3) < 0)
+      if (Random.Range(0, 3) > 0)
       {
         Debug.Log("Jump from door to closet");
         SwitchState(enemyPrepareState);
         jumpScareCounter = 0;
-        return;
-      }
-      else if (player.isNearDoor)
-      {
-        Debug.Log("Player check door too late");
-        SetDoorJumpscareAnim();
-        SwitchState(enemyAttackState);
-        jumpScareCounter = 0;
-        jumpscareAtDoor = true;
         return;
       }
       else
