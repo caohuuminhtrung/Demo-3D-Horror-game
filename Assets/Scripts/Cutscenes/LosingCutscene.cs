@@ -12,6 +12,7 @@ public class LosingCutscene : MonoBehaviour
     private Animator animator;
 
     private void Awake() {
+        Cursor.lockState = CursorLockMode.Confined;
         animator = GetComponent<Animator>();
     }
 
