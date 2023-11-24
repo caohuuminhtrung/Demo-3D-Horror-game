@@ -18,24 +18,16 @@ public class FirstCutscene : MonoBehaviour
     yield return null;
   }
 
-  IEnumerator WakeUp(GameObject player)
-  {
-    player.GetComponent<Animator>().Play("WakeUp");
-    yield return new WaitForSeconds(1f);
-  }
-
   IEnumerator EnablePlayer(GameObject player)
   {
     player.GetComponent<PlayerController>().SetIdle();
-    player.GetComponent<Animator>().enabled = false;
     yield return null;
   }
 
   public IEnumerator Play(DialogueController dialogueController, GameObject player)
   {
+    player.GetComponent<Animator>().enabled = false;
     yield return Dialogue(dialogueController, player);
-    yield return DisablePlayer(player);
-    yield return WakeUp(player);
     yield return new WaitForSeconds(1f);
     yield return EnablePlayer(player);
   }
