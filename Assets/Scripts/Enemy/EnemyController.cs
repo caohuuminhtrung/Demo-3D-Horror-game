@@ -328,6 +328,7 @@ public class EnemyController : MonoBehaviour
       if (Random.Range(0, 3) > 0)
       {
         Debug.Log("Jump from door to closet");
+        laughing.Play();
         SwitchState(enemyPrepareState);
         jumpScareCounter = 0;
         return;

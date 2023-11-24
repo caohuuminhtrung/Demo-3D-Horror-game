@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (gameController.stage < 5)
 		{
-			time.GetComponent<TextMeshProUGUI>().text = "7 PM";
+			time.GetComponent<TextMeshProUGUI>().text = "10 PM";
 		}
 		else
 		{
@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
 			}
 			if (hour == 0)
 			{
-				time.GetComponent<TextMeshProUGUI>().text = "0 AM";
+				time.GetComponent<TextMeshProUGUI>().text = "12 AM";
 			}
 			else
 			{
@@ -159,7 +159,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	IEnumerator StartLosingScene(){
+	IEnumerator StartLosingScene()
+	{
 		yield return new WaitForSeconds(3f);
 		videoPlayer.GameObject().SetActive(false);
 		ArrayList hints = new ArrayList
