@@ -1,7 +1,6 @@
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -12,6 +11,7 @@ public class GameManager : MonoBehaviour
 	public GameObject overlay;
 	public GameObject time;
 	public GameObject winning;
+	[SerializeField] GameObject endingCamera;
 	[SerializeField] GameObject enemy;
 	[SerializeField] GameObject enemyPosition;
 	[SerializeField] GameObject audioSource;
@@ -26,10 +26,6 @@ public class GameManager : MonoBehaviour
 
 	public static bool IsPaused = false;
 
-	void Start()
-	{
-		videoPlayer.loopPointReached += OnVideoEnd;
-	}
 	public void Update()
 	{
 		if (pauseMenuUi != null)
@@ -104,7 +100,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (gameController.stage < 5)
 		{
-			time.GetComponent<TextMeshProUGUI>().text = "11 PM";
+			time.GetComponent<TextMeshProUGUI>().text = "7 PM";
 		}
 		else
 		{
@@ -117,7 +113,7 @@ public class GameManager : MonoBehaviour
 			}
 			if (hour == 0)
 			{
-				time.GetComponent<TextMeshProUGUI>().text = "12 AM";
+				time.GetComponent<TextMeshProUGUI>().text = "0 AM";
 			}
 			else
 			{
@@ -158,11 +154,14 @@ public class GameManager : MonoBehaviour
 			enemyPosition.SetActive(false);
 			audioSource.SetActive(false);
 			player.SetActive(false);
+
+			StartCoroutine(StartLosingScene());
 		}
 	}
 
-	private void OnVideoEnd(VideoPlayer vp)
-	{
+	IEnumerator StartLosingScene(){
+		yield return new WaitForSeconds(3f);
+		videoPlayer.GameObject().SetActive(false);
 		ArrayList hints = new ArrayList
 		{
 			"Remember to check the door.",
@@ -190,5 +189,6 @@ public class GameManager : MonoBehaviour
 		losing.GameObject().SetActive(true);
 		losing.PlayEndingSong();
 		losing.PlayEndingScene();
+
 	}
 }
