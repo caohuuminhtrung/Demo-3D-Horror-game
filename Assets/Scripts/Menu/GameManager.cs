@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
 
 	public static bool IsPaused = false;
 
-	void Start(){
+	void Start()
+	{
 		videoPlayer.loopPointReached += OnVideoEnd;
 	}
 	public void Update()
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (gameController.stage < 5)
 		{
-			time.GetComponent<TextMeshProUGUI>().text = "7 PM";
+			time.GetComponent<TextMeshProUGUI>().text = "11 PM";
 		}
 		else
 		{
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour
 			}
 			if (hour == 0)
 			{
-				time.GetComponent<TextMeshProUGUI>().text = "0 AM";
+				time.GetComponent<TextMeshProUGUI>().text = "12 AM";
 			}
 			else
 			{
@@ -130,13 +131,15 @@ public class GameManager : MonoBehaviour
 		if (!isEndGame)
 		{
 			isEndGame = true;
+
+			winning.SetActive(true);
+			winning.GetComponent<WinningCutscene>().StartCutScene();
 			pauseMenuUi.SetActive(false);
 			overlay.SetActive(false);
 			enemy.SetActive(false);
 			enemyPosition.SetActive(false);
 			audioSource.SetActive(false);
-			winning.SetActive(true);
-			winning.GetComponent<WinningCutscene>().StartCutScene();
+
 		}
 
 	}
@@ -147,18 +150,19 @@ public class GameManager : MonoBehaviour
 		{
 			isEndGame = true;
 
+			videoPlayer.GameObject().SetActive(true);
+			videoPlayer.Play();
 			pauseMenuUi.SetActive(false);
 			overlay.SetActive(false);
 			enemy.SetActive(false);
 			enemyPosition.SetActive(false);
 			audioSource.SetActive(false);
 			player.SetActive(false);
-			videoPlayer.GameObject().SetActive(true);
-			videoPlayer.Play();
 		}
 	}
 
-	private void OnVideoEnd(VideoPlayer vp){
+	private void OnVideoEnd(VideoPlayer vp)
+	{
 		ArrayList hints = new ArrayList
 		{
 			"Remember to check the door.",

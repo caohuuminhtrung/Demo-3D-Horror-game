@@ -414,6 +414,7 @@ public class EnemyController : MonoBehaviour
     jumpscareSound.GetComponent<AudioSource>().Play();
 
     yield return new WaitForSeconds(3f);
+    isLosingGame = true;
     closetAnim1.SetFloat("Speed", 1);
     closetAnim2.SetFloat("Speed", 1);
     doorAnim.SetFloat("Speed", 1);
@@ -421,7 +422,6 @@ public class EnemyController : MonoBehaviour
     jumpscareCam.SetActive(false);
     playerCam.SetActive(true);
     player.enabled = true;
-    isLosingGame = true;
     // Cursor.lockState = CursorLockMode.None;
     // jumpscareEnemy.GetComponent<Animation>().Stop();
     jumpscareSound.GetComponent<AudioSource>().Stop();
