@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
 
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour
   ItemDictionary itemDictionary;
   public int stage = 1;
   bool playStage = true;
+  public bool isLoadScene = false;
 
   // JumpscareScene jumpscareScene;
   // Start is called before the first frame update
@@ -48,59 +50,80 @@ public class GameController : MonoBehaviour
     skyLight.SetActive(false);
     jumpscare.SetActive(false);
 
+    if(isLoadScene){
+      Debug.Log("Load scene from Game Controller");
+      LoadScene();
+    }
   }
 
   // Update is called once per frame
   void Update()
   {
+    Debug.Log("Stage:" + stage);
     // if (Input.GetKeyDown(KeyCode.T))
     // {
     //   StartCoroutine(jumpscareScene.Play(player.gameObject, enemy, animationHolder));
     // }
-    if (stage == 1 && playStage)
-    {
-      StartCoroutine(firstCutscene.Play(dialogueController, player.gameObject));
+    if(!isLoadScene){
+      if (stage == 1 && playStage)
+      {
+        StartCoroutine(firstCutscene.Play(dialogueController, player.gameObject));
 
-      stage = 2;
-      playStage = false;
-    }
-    if (stage == 2 && playStage)
-    {
-      HidePrompt();
-      StartCoroutine(dialogueController.ShowDialogue(dialogues.dialogues[1]));
+        stage = 2;
+        playStage = false;
+      }
+      if (stage == 2 && playStage)
+      {
+        HidePrompt();
+        StartCoroutine(dialogueController.ShowDialogue(dialogues.dialogues[1]));
 
-      GameObject.Find("Pill Bottle Pickup").gameObject.layer = LayerMask.NameToLayer("Interactive Objects");
-      playStage = false;
-      stage = 3;
-    }
-    if (stage == 3 && playStage)
-    {
-      HidePrompt();
-      StartCoroutine(dialogueController.ShowDialogue(dialogues.dialogues[2]));
-      GameObject.Find("Bed").layer = LayerMask.NameToLayer("Interactive Objects");
+        GameObject.Find("Pill Bottle Pickup").gameObject.layer = LayerMask.NameToLayer("Interactive Objects");
+        playStage = false;
+        stage = 3;
+      }
+      if (stage == 3 && playStage)
+      {
+        HidePrompt();
+        StartCoroutine(dialogueController.ShowDialogue(dialogues.dialogues[2]));
+        GameObject.Find("Bed").layer = LayerMask.NameToLayer("Interactive Objects");
 
-      playStage = false;
-      stage = 4;
-    }
-    if (stage == 4 && playStage)
-    {
-      HidePrompt();
-      StartCoroutine(secondCutscene.Play(dialogueController, player.gameObject));
-      door.switchState(door.doorHalfCloseState);
-      stage = 5;
-      skyLight.SetActive(true);
+        playStage = false;
+        stage = 4;
+      }
+      if (stage == 4 && playStage)
+      {
+        HidePrompt();
+        StartCoroutine(secondCutscene.Play(dialogueController, player.gameObject));
+        door.switchState(door.doorHalfCloseState);
+        stage = 5;
+        skyLight.SetActive(true);
 
-      playStage = false;
-    }
+        playStage = false;
+      }
 
-    if (secondCutscene.lightExploded)
-    {
-      secondCutscene.lightExploded = false;
-      enemyController.StartEnemyBehaviour();
+      if (secondCutscene.lightExploded)
+      {
+        secondCutscene.lightExploded = false;
+        
+        enemyController.StartEnemyBehaviour();
+        isLoadScene = true;
+      }
     }
+    
   }
 
+  private void LoadScene(){
+      GameObject light = GameObject.Find("Room Light");
+      GameObject foodTray = GameObject.Find("Food Tray");
 
+      foodTray.layer = LayerMask.NameToLayer("Default");
+      foodTray.transform.localPosition = new Vector3(-16.84f, 1.81f, -9.47855f);
+      foodTray.transform.GetChild(0).GameObject().SetActive(false);      
+
+      light.GetComponent<LightBehavior>().DisableLight();
+      enemyController.StartEnemyBehaviour();
+
+  }
 
   public void ShowPrompt(GameObject hitObject)
   {
