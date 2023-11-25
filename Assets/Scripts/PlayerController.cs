@@ -100,6 +100,12 @@ public class PlayerController : MonoBehaviour
       );
     }
 
+
+    if(gameController.isLoadScene){
+      if(transform.position.y > 0){
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+      }
+    }
   }
   private float GetCustomHorizontalInput()
   {

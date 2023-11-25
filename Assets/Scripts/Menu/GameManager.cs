@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -20,11 +21,49 @@ public class GameManager : MonoBehaviour
 	[SerializeField] GameObject player;
 	[SerializeField] GameController gameController;
 	[SerializeField] VideoPlayer videoPlayer;
+	[SerializeField] LoadManager loadManager;
 	private bool isEndGame = false;
 	private float gameTimeInSeconds = 0.0f;
 	private float timeScale = 30;
 
 	public static bool IsPaused = false;
+
+	void OnEnable(){
+        SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	void OnDisable()
+    {
+        Debug.Log("OnDisable");
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("OnSceneLoaded: " + scene.name);
+        if(scene.name == "SampleScene"){
+			if(PlayerPrefs.GetInt("LoadGame") == 1){
+				Debug.Log("Load Data");
+				Data data = LoadManager.load.LoadData();
+				if(data != null){
+					Vector3 playerPos = new Vector3(
+						data.PlayerPosX, 
+						data.PlayerPosY, 
+						data.PlayerPosZ);
+					Vector3 playerRot = new Vector3(
+						data.PlayerRotX, 
+						data.PlayerRotY, 
+						data.PlayerRotZ);
+					player.transform.position = playerPos;
+					player.transform.eulerAngles = playerRot;
+
+					gameTimeInSeconds = data.Hour * 3600;
+					gameController.stage = data.Stage;
+					gameController.isLoadScene = true;
+				}
+			}
+		}
+    }
 
 	public void Update()
 	{
@@ -73,7 +112,13 @@ public class GameManager : MonoBehaviour
 	}
 
 	public void ExitGame()
-	{
+	{	
+		if(pauseMenuUi != null){
+			if(gameController.isLoadScene == true){
+			SaveGame();
+			}
+		}
+
 		Application.Quit();
 	}
 
@@ -84,6 +129,11 @@ public class GameManager : MonoBehaviour
 
 	public void PlayGame()
 	{
+		SceneManager.LoadScene(1);
+	}
+
+	public void LoadGame(){
+		PlayerPrefs.SetInt("LoadGame", 1);
 		SceneManager.LoadScene(1);
 	}
 	private void PauseGame()
@@ -100,7 +150,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (gameController.stage < 5)
 		{
-			time.GetComponent<TextMeshProUGUI>().text = "7 PM";
+			time.GetComponent<TextMeshProUGUI>().text = "10 PM";
 		}
 		else
 		{
@@ -113,13 +163,15 @@ public class GameManager : MonoBehaviour
 			}
 			if (hour == 0)
 			{
-				time.GetComponent<TextMeshProUGUI>().text = "0 AM";
+				time.GetComponent<TextMeshProUGUI>().text = "12 AM";
 			}
 			else
 			{
 				time.GetComponent<TextMeshProUGUI>().text = hour + " AM";
 			}
 		}
+
+		Debug.Log("GameTimeInSecond: " + gameTimeInSeconds);
 	}
 
 	private void WinGame()
@@ -191,4 +243,20 @@ public class GameManager : MonoBehaviour
 		losing.PlayEndingScene();
 
 	}
+
+	private void SaveGame(){
+		Data data = new Data();
+		data.PlayerPosX = player.transform.position.x;
+		data.PlayerPosY = player.transform.position.y;
+		data.PlayerPosZ = player.transform.position.z;
+		data.PlayerRotX = player.transform.rotation.eulerAngles.x;
+		data.PlayerRotY = player.transform.rotation.eulerAngles.y;
+		data.PlayerRotZ = player.transform.rotation.eulerAngles.z;
+		data.Hour = Mathf.FloorToInt(gameTimeInSeconds / 3600);
+		data.Stage = gameController.stage;
+
+		LoadManager.load.SaveData(data);
+		PlayerPrefs.DeleteKey("LoadGame");
+	}
+
 }

@@ -69,6 +69,7 @@
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabExporter.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\SmoothFollow.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyIdleState.cs" />
+    <Compile Include="Assets\Scripts\Menu\LoadManager\Data.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\SimpleActivatorMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\DynamicShadowSettings.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Environment\Water\Water\Scripts\SpecularLighting.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\Kaleidoscope\KaleidoscopeEffect.cs" />
+    <Compile Include="Assets\Scripts\Menu\LoadManager\LoadManager.cs" />
     <Compile Include="Assets\Scripts\Door\DoorBaseState.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\ObjectResetter.cs" />
+    <Compile Include="Assets\Scripts\Menu\QualityManager\QualitySettingsMenu.cs" />
     <Compile Include="Assets\Scripts\Menu\SoundManager\ButtonClicks.cs" />
     <Compile Include="Assets\Models &amp; Prefab\VHS\PostEffects\Mirror\MirrorEffect.cs" />
     <Compile Include="Assets\Sketchfab For Unity\Scripts\SketchfabLogger.cs" />
@@ -166,7 +169,6 @@
     <Compile Include="Assets\Scripts\Door\DoorHalfOpenState.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
-    <Compile Include="Assets\Scripts\Menu\GameManager\QualitySettingsMenu.cs" />
     <Compile Include="Assets\Models &amp; Prefab\Standard Assets\Utility\ForcedReset.cs" />
     <Compile Include="Assets\Scripts\PickupBehavior.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
