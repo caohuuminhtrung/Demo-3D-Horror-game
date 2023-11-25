@@ -100,7 +100,7 @@ public class LoadManager : MonoBehaviour
 		Debug.Log(this + " Save ...: " + Path());
 	}
 
-    private string Path(){
+    public string Path(){
 		return Application.dataPath + "/" + fileName;
 	}
 

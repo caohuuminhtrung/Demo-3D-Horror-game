@@ -1,4 +1,5 @@
 using System.Collections;
+using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour
 	public GameObject overlay;
 	public GameObject time;
 	public GameObject winning;
+	[SerializeField] GameObject alertBox;
 	[SerializeField] GameObject endingCamera;
 	[SerializeField] GameObject enemy;
 	[SerializeField] GameObject enemyPosition;
@@ -129,7 +131,19 @@ public class GameManager : MonoBehaviour
 
 	public void PlayGame()
 	{
+		if(File.Exists(loadManager.Path())){
+			File.Delete(loadManager.Path());
+		}
 		SceneManager.LoadScene(1);
+	}
+
+	public void NewGame(){
+		if(File.Exists(loadManager.Path())){
+			alertBox.SetActive(true);
+		}
+		else{
+			PlayGame();
+		}
 	}
 
 	public void LoadGame(){
